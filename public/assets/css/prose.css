@@ -1,0 +1,307 @@
+/* ==========================================================================
+   Markdown Prose Styling (Global)
+   ========================================================================== */
+
+.prose-content {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.6;
+    word-wrap: break-word;
+    color-scheme: dark light;
+}
+
+/* Headings */
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4,
+.prose-content h5,
+.prose-content h6 {
+    font-family: 'Lexend', sans-serif;
+    color: var(--primary-color);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-top: 2em;
+    margin-bottom: 0.8em;
+    position: relative;
+    letter-spacing: -0.01em;
+    word-break: break-word;
+}
+
+.prose-content h1 { 
+    font-size: 2.2rem; 
+    margin-top: 1rem;
+}
+.prose-content h2 { 
+    font-size: 1.5rem; 
+    border-bottom: 3px dotted var(--border-color);
+    padding-bottom: 0.4rem;
+    display: block;
+    width: 100%;
+}
+.prose-content h3 { font-size: 1.25rem; }
+.prose-content h4 { font-size: 1.1rem; }
+/* Paragraphs & Spacing */
+.prose-content p {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    opacity: 0.95;
+}
+
+.prose-content strong {
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.prose-content em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* Hyperlinks - Highlighter Effect */
+.prose-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    padding: 0 2px;
+    z-index: 1;
+    transition: color 0.2s ease;
+}
+
+.prose-content a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: rgba(var(--primary-rgb), 0.15);
+    z-index: -1;
+    transition: height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prose-content a:hover {
+    color: var(--primary-color);
+}
+
+.prose-content a:hover::after {
+    height: 100%;
+    background: rgba(var(--primary-rgb), 0.25);
+}
+
+/* Blockquotes - Post-it Style */
+.prose-content blockquote {
+    margin: 2.5em 0;
+    padding: 1.5em 2rem;
+    background: rgba(var(--primary-rgb), 0.03);
+    border: 3px dotted var(--primary-color);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    position: relative;
+    font-size: 1rem;
+    color: var(--text-primary);
+    transform: rotate(-1deg);
+}
+
+.prose-content blockquote p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Lists */
+.prose-content ul,
+.prose-content ol {
+    margin: 1.5em 0;
+    padding-left: 1.5em;
+}
+
+.prose-content li {
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.prose-content ul {
+    list-style: none;
+}
+
+.prose-content ul li::before {
+    content: "•";
+    position: absolute;
+    left: -1.2rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    line-height: 1;
+    top: 0.1rem;
+}
+
+.prose-content ol {
+    list-style-type: decimal;
+    color: var(--text-primary);
+}
+
+.prose-content ol li::marker {
+    color: var(--primary-color);
+    font-weight: 800;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.1rem;
+}
+
+/* Tables */
+.prose-content table {
+    width: 100%;
+    margin: 2.5em 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-md, 10px);
+    overflow: hidden;
+    font-size: 0.9rem;
+}
+
+.prose-content th,
+.prose-content td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 3px dotted var(--border-color);
+}
+
+.prose-content th {
+    background: rgba(var(--primary-rgb), 0.05);
+    color: var(--primary-color);
+    font-family: 'Lexend', sans-serif;
+    font-weight: 800;
+    text-transform: lowercase;
+    font-size: 0.9rem;
+}
+
+.prose-content tr:last-child td {
+    border-bottom: none;
+}
+
+.prose-content tr {
+    transition: background-color 0.2s ease;
+}
+
+.prose-content tbody tr:hover {
+    background-color: rgba(var(--primary-rgb), 0.03);
+}
+
+/* Inline Code */
+.prose-content code:not(pre code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-color);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+    border: 1px solid rgba(var(--primary-rgb), 0.15);
+    white-space: nowrap;
+}
+
+/* Preformatted Code Blocks */
+.prose-content pre {
+    background: #0a0b0e !important;
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-md, 10px);
+    margin: 2.5em 0;
+    overflow: hidden;
+}
+
+[data-theme="light"] .prose-content pre {
+    background: #1a1b22 !important;
+}
+
+.prose-content pre code {
+    display: block;
+    padding: 1.25rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #e2e8f0;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Code Block Headers (injected via JS) */
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.code-lang {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.copy-button {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.copy-button:hover {
+    background: rgba(var(--primary-rgb), 0.15);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.copy-button.copied {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border-color: #4ade80;
+}
+
+/* Images */
+.prose-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md, 10px);
+    margin: 2em auto;
+    display: block;
+    border: 3px dotted var(--border-color);
+}
+
+/* Horizontal Rules */
+.prose-content hr {
+    border: none;
+    height: 3px;
+    border-top: 3px dotted var(--border-color);
+    margin: 5rem 0;
+    position: relative;
+    overflow: visible;
+    opacity: 0.8;
+}
+
+.prose-content hr::before {
+    content: "~ ~ ~";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg-primary);
+    padding: 0 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-family: "Lexend", sans-serif;
+    font-weight: 800;
+    line-height: 1;
+}

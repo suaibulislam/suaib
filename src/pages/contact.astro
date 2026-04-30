@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+  title="say hi - suaib"
+  description="got something to say? feedback, collab ideas, or random tech thoughts — i'm around."
+  canonical="https://suaib.is-a.dev/contact"
+>
+  <section class="contact-section">
+    <h2 class="section-heading">say hi</h2>
+    <div class="contact-content">
+      <div class="contact-intro">
+        <p>
+          got an idea? a bug report? a cursed meme? throw it at me. i read
+          everything, even the weird ones.
+        </p>
+      </div>
+
+      <div class="contact-socials">
+        <h3 class="portal-heading">find me in the wild</h3>
+        <div class="nav-grid">
+          <a
+            href="https://github.com/suaibulislam"
+            class="nav-card"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="nav-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-github"
+                ><path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                ></path></svg
+              >
+            </div>
+            <div class="nav-text">
+              <div class="nav-title">github</div>
+              <div class="nav-desc">
+                where the code lives (and sometimes dies)
+              </div>
+            </div>
+          </a>
+          <a
+            href="https://discord.com/users/1380331017172287571"
+            class="nav-card"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="nav-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-message-square"
+                ><path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path><circle cx="9" cy="9" r="1"></circle><circle
+                  cx="15"
+                  cy="9"
+                  r="1"></circle></svg
+              >
+            </div>
+            <div class="nav-text">
+              <div class="nav-title">discord</div>
+              <div class="nav-desc">
+                ping me here, i respond faster than my code compiles
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-note">
+        <p>
+          discord is usually the best and the fastest way to get in touch with me.
+        </p>
+      </div>
+
+      <div class="contact-form">
+        <h3 class="portal-heading">or just leave a note</h3>
+        <form
+          id="contact-form"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+          <div class="form-group">
+            <label for="name">your name</label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">an email i can reach you at</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">your message</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">looks good! send it</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal for form feedback -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3 class="modal-title" id="modal-title">title</h3>
+      <p class="modal-text" id="modal-text">message</p>
+      <button class="submit-btn" id="modal-close">close</button>
+    </div>
+  </div>
+
+  <Footer />
+</BaseLayout>

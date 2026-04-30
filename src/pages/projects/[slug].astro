@@ -1,0 +1,212 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<BaseLayout 
+  title={`${project.data.title.toLowerCase()} - suaib`}
+  description={project.data.description}
+  canonical={`https://suaib.is-a.dev/projects/${project.slug}`}
+>
+  <article class="project-detail">
+    <header class="project-header">
+      <h1 class="project-title">{project.data.title.toLowerCase()}</h1>
+      <p class="project-description">{project.data.description.toLowerCase()}</p>
+      
+      <div class="project-meta">
+        <div class="meta-section">
+          <h3 class="meta-label">tech stack</h3>
+          <div class="tech-list">
+            {project.data.tech.map(tech => (
+              <span class="tech-item">{tech}</span>
+            ))}
+          </div>
+        </div>
+        
+        <div class="meta-section">
+          <h3 class="meta-label">links</h3>
+          <div class="project-links">
+            {project.data.github && (
+              <a href={project.data.github} class="project-link" target="_blank" rel="noopener">
+                <span class="link-icon">gh</span>
+                source code
+              </a>
+            )}
+            {project.data.demo && (
+              <a href={project.data.demo} class="project-link" target="_blank" rel="noopener">
+                <span class="link-icon">live</span>
+                view demo
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="project-content prose-content">
+      <Content />
+    </div>
+    
+    <nav class="project-nav">
+      <a href="/projects" class="back-link">
+        <span class="back-icon">⇠</span>
+        back to stuff i built
+      </a>
+    </nav>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .project-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+  
+  .project-header {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 3px dotted var(--border-color);
+  }
+  
+  .project-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: clamp(2rem, 8vw, 3rem);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  
+  .project-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  .meta-label {
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+  
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-item {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    padding: 0.2rem 0.6rem;
+    border: 2px dotted var(--border-color);
+    border-radius: 6px;
+  }
+  
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: 3px dotted var(--border-color);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: 'Lexend', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .project-link:hover {
+    border-color: var(--primary-color);
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0 rgba(var(--primary-rgb), 0.15);
+    background: var(--bg-secondary);
+  }
+
+  .link-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    color: var(--primary-color);
+    opacity: 0.7;
+  }
+
+  .project-content {
+    margin-bottom: 5rem;
+  }
+
+  .project-nav {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 3px dotted var(--border-color);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: var(--primary-color);
+    transform: translateX(-5px);
+  }
+
+  .back-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  @media (max-width: 600px) {
+    .project-header {
+      margin-bottom: 2.5rem;
+    }
+    .project-meta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

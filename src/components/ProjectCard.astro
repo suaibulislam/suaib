@@ -1,0 +1,226 @@
+---
+
+export interface Props {
+  title: string;
+  description: string;
+  tech: string[];
+  status: string;
+  slug: string;
+  github?: string;
+  demo?: string;
+  featured?: boolean;
+}
+
+const { title, description, tech, status, slug, github, demo, featured = false } = Astro.props;
+---
+
+<article class={`project-card ${featured ? 'featured' : ''}`}>
+  <div class="project-icon-wrapper">
+    <div class="project-icon">{title.charAt(0).toLowerCase()}</div>
+  </div>
+  
+  <div class="project-content">
+    <h3 class="project-title">
+      <a href={`/projects/${slug}`}>{title}</a>
+    </h3>
+    <p class="project-description">{description}</p>
+    
+    <div class="project-footer">
+      <div class="tech-tags">
+        {tech.slice(0, 3).map(techItem => (
+          <span class="tech-tag">{techItem}</span>
+        ))}
+      </div>
+      
+      <div class="project-actions">
+        {github && (
+          <a href={github} class="action-link" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
+        )}
+        {demo && (
+          <a href={demo} class="action-link" target="_blank" rel="noopener" aria-label="Demo">live</a>
+        )}
+        <span class={`status-badge status-${status}`}>{status}</span>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    background: transparent;
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-lg, 14px);
+    padding: 1rem 1.25rem;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .project-card:hover {
+    border-color: var(--primary-color);
+    background: var(--bg-secondary);
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 rgba(var(--primary-rgb), 0.2);
+    border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+  }
+
+  .project-card.featured {
+    border-color: var(--primary-color);
+    background: transparent;
+  }
+
+  .project-icon-wrapper {
+    flex-shrink: 0;
+  }
+
+  .project-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border-radius: var(--radius-md, 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    border: 3px dotted var(--primary-color);
+    text-transform: lowercase;
+  }
+
+  .project-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .project-title {
+    font-family: 'Lexend', sans-serif;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: lowercase;
+  }
+
+  .project-title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
+  .project-title a:hover {
+    color: var(--primary-color);
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .project-footer {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding-top: 0.5rem;
+    border-top: 3px dotted var(--border-color);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: flex-start;
+  }
+
+  .tech-tag {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    padding: 0 0.4rem;
+    background: transparent;
+    border-radius: var(--radius-sm, 6px);
+    border: 3px dotted var(--border-color);
+    font-family: 'Lexend', sans-serif;
+    font-weight: 500;
+  }
+
+  .project-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .action-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 0.1rem 0.4rem;
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-sm, 6px);
+    transition: all 0.2s ease;
+  }
+
+  .action-link:hover {
+    background: transparent;
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+  }
+
+  .status-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: var(--radius-sm, 6px);
+    background: transparent;
+    color: var(--text-secondary);
+    border: 3px dotted var(--border-color);
+  }
+
+  .status-live {
+    background: transparent;
+    color: #4ade80;
+    border-color: #4ade80;
+  }
+
+  @media (max-width: 450px) {
+    .project-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+
+    .project-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .project-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .project-actions {
+      justify-content: flex-start;
+      width: 100%;
+    }
+  }
+</style>

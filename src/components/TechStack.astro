@@ -1,0 +1,34 @@
+---
+const techItems = [
+  "javascript",
+  "python",
+  "react",
+  "node.js",
+  "git",
+  "html",
+  "css",
+  "astro",
+];
+---
+
+<div class="tech-stack">
+  <h3>stuff i'm into</h3>
+  <div class="tech-list">
+    {techItems.map((tech) => <span class="tech-item">{tech}</span>)}
+  </div>
+</div>
+
+<style>
+  .tech-stack {
+    margin: 2rem 0 1rem;
+  }
+
+  .tech-stack h3 {
+    font-family: "Sora", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+</style>

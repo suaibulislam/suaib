@@ -1,0 +1,119 @@
+---
+
+const currentPath = Astro.url.pathname;
+const isActive = (path: string) => currentPath === path;
+---
+
+<nav class="nav" id="main-nav">
+  <div class="nav-links">
+    <a href="/" class={`nav-link ${isActive('/') ? 'active' : ''}`}>
+      <span class="nav-text">about me</span>
+    </a>
+    <a href="/projects" class={`nav-link ${isActive('/projects') ? 'active' : ''}`}>
+      <span class="nav-text">things i built</span>
+    </a>
+    <a href="/blogs" class={`nav-link ${isActive('/blogs') ? 'active' : ''}`}>
+      <span class="nav-text">rants</span>
+    </a>
+    <a href="/contact" class={`nav-link ${isActive('/contact') ? 'active' : ''}`}>
+      <span class="nav-text">say hi</span>
+    </a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.5rem;
+    position: relative;
+    align-items: center;
+  }
+
+  .nav-link {
+    color: var(--text-secondary, #a0a0a0);
+    text-decoration: none;
+    font-family: 'Lexend', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm, 6px);
+    transition: color 0.25s ease, background 0.25s ease;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--text-primary, #fff);
+    background: rgba(var(--primary-rgb), 0.08);
+  }
+
+  .nav-link.active {
+    color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.08);
+    font-weight: 700;
+  }
+
+  /* Inside mobile drawer — vertical stacked list (must override the grid @media below) */
+  :global(.mobile-nav-wrapper) .nav {
+    width: 100%;
+  }
+
+  :global(.mobile-nav-wrapper) .nav-links {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  :global(.mobile-nav-wrapper) .nav-link {
+    padding: 0.85rem 1.25rem;
+    font-size: 1rem;
+    border-radius: var(--radius-md, 10px);
+    width: 100%;
+    justify-content: flex-start;
+    text-align: left;
+    border: 3px dotted transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+  }
+
+  :global(.mobile-nav-wrapper) .nav-link:hover {
+    background: rgba(var(--primary-rgb), 0.08);
+    border-color: rgba(var(--primary-rgb), 0.1);
+  }
+
+  :global(.mobile-nav-wrapper) .nav-link.active {
+    background: rgba(var(--primary-rgb), 0.1);
+    border-color: rgba(var(--primary-rgb), 0.15);
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+
+  @media (max-width: 480px) {
+    .nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      width: 100%;
+    }
+    .nav-link {
+      padding: 0.5rem 0.4rem;
+      font-size: 0.8rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      border: 3px dotted rgba(var(--primary-rgb), 0.05);
+    }
+  }
+</style>
+
+
+

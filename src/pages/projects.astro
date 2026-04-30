@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const projects = allProjects.sort((a, b) => {
+  
+  if (a.data.featured && !b.data.featured) return -1;
+  if (!a.data.featured && b.data.featured) return 1;
+  if (a.data.date && b.data.date) {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  }
+  return 0;
+});
+---
+
+<BaseLayout 
+  title="stuff i built - suaib"
+  description="stuff i've actually shipped. some work great, some work... eventually."
+  canonical="https://suaib.is-a.dev/projects"
+>
+
+<section class="projects-section">
+  <h2 class="section-heading">things i shipped (somehow)</h2>
+  <div class="projects-grid">
+    {projects.map(project => (
+      <ProjectCard 
+        title={project.data.title}
+        description={project.data.description}
+        tech={project.data.tech}
+        status={project.data.status}
+        slug={project.slug}
+        github={project.data.github}
+        demo={project.data.demo}
+        featured={project.data.featured}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    margin-bottom: 4rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
+
+<Footer />
+
+</BaseLayout>

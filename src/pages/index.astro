@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import TechStack from "../components/TechStack.astro";
+import TimezoneWidget from "../components/TimezoneWidget.astro";
+---
+
+<BaseLayout
+  title="suaib / home base"
+  description="i'm suaib. i build small internet projects, break them, and somehow learn things along the way."
+  canonical="https://suaib.is-a.dev/"
+>
+  <section class="about-section">
+    <h2 class="section-heading">hello</h2>
+    <div class="about-content">
+      <p>
+        i'm <span class="name-accent">suaib</span>, a student from bangladesh. i
+        spend way too much time watching anime and playing clash of clans. somewhere in between, i make stuff for the
+        internet. half the time the code works and i don't really know why — that's the whole process.
+      </p>
+
+      <p id="time-signoff" class="time-signoff" aria-live="polite">
+        have a good day!
+      </p>
+
+      <TechStack />
+
+      <div class="philosophy">
+        <h3 class="portal-heading">how the chaos works</h3>
+        <div class="nav-grid portal-grid">
+          <div class="nav-card stat-card">
+            <div class="nav-icon">!</div>
+            <div class="nav-text">
+              <div class="nav-title">don't overthink</div>
+              <div class="nav-desc">
+                code now, think later. (as if i don't overthink anyway). ctrl+z exists for a
+                reason.
+              </div>
+            </div>
+          </div>
+          <div class="nav-card stat-card">
+            <div class="nav-icon">~</div>
+            <div class="nav-text">
+              <div class="nav-title">the toolbox</div>
+              <div class="nav-desc">
+                docs, stackoverflow, and asking AI stupid questions.
+              </div>
+            </div>
+          </div>
+          <div class="nav-card stat-card">
+            <div class="nav-icon">?</div>
+            <div class="nav-text">
+              <div class="nav-title">learn by doing</div>
+              <div class="nav-desc">
+                actually true. if you want to learn it, you just gotta build it yourself.
+              </div>
+            </div>
+          </div>
+          <div class="nav-card stat-card">
+            <div class="nav-icon">&</div>
+            <div class="nav-text">
+              <div class="nav-title">ship it ugly</div>
+              <div class="nav-desc">
+                done beats perfect. i can always refactor it tomorrow. (i
+                won't.)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="timezone-section">
+    <h2 class="section-heading">what time is it in my cave</h2>
+    <TimezoneWidget />
+  </section>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .about-section {
+    margin-bottom: 3rem;
+  }
+
+  .about-content p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .time-signoff {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    font-style: italic;
+    opacity: 0.8;
+    text-align: center;
+  }
+
+  .philosophy {
+    margin: 4rem 0;
+  }
+
+  .portal-heading {
+    font-family: "Outfit", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .portal-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  }
+
+  .stat-card {
+    background: rgba(var(--primary-rgb), 0.03);
+    pointer-events: none;
+  }
+
+  .timezone-section {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+</style>

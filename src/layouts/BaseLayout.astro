@@ -1,0 +1,139 @@
+---
+import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  canonical = "https://suaib.is-a.dev",
+  ogImage = "https://suaib.is-a.dev/assets/images/og-image.svg",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <style is:inline>
+      :root, [data-theme="dark"] {
+        --primary-color: #ff8c42;
+        --primary-rgb: 255, 140, 66;
+        --bg-primary: #1a1c1e;
+        --bg-secondary: #232529;
+        --text-primary: #f2f2f2;
+        --text-secondary: #a0a0a5;
+        --border-color: rgba(255, 140, 66, 0.1);
+        --radius-lg: 24px;
+        --radius-md: 16px;
+        --radius-sm: 10px;
+      }
+
+      [data-theme="light"] {
+        --primary-color: #d9480f;
+        --primary-rgb: 217, 72, 15;
+        --bg-primary: #fcfaf2;
+        --bg-secondary: #f4f1e8;
+        --text-primary: #1a1c1e;
+        --text-secondary: #5a5a60;
+        --border-color: rgba(217, 72, 15, 0.15);
+      }
+
+      html {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+      }
+    </style>
+    <script is:inline>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+        document.documentElement.style.colorScheme = savedTheme;
+      })();
+    </script>
+    <ClientRouter />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImage} />
+
+    <title>{title}</title>
+    <link rel="stylesheet" href="/assets/css/styles.css?v=3" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231a1c1e'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='36' font-weight='bold' fill='%23ff8c42' font-family='sans-serif'%3ES%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Lexend:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preload" href="/assets/css/styles.css" as="style" />
+    <link rel="preload" href="/assets/js/script.js" as="script" />
+
+    <!-- Preload other pages for instant navigation -->
+    <link rel="prefetch" href="/projects" />
+    <link rel="prefetch" href="/blogs" />
+    <link rel="prefetch" href="/contact" />
+    <link rel="prefetch" href="/404" />
+
+    <link rel="canonical" href={canonical} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "suaib",
+        "description": "student developer from bangladesh. i build practical tools, break them, and then learn how to fix them in public.",
+        "url": "https://suaib.is-a.dev",
+        "sameAs": [
+          "https://github.com/suaibulislam",
+          "https://discord.com/users/1380331017172287571"
+        ],
+        "knowsAbout": ["JavaScript", "Python", "React", "Node.js", "Git"],
+        "jobTitle": "Student Developer",
+        "nationality": "Bangladeshi",
+        "alumniOf": "Student"
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <Header />
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+      <div class="content-wrapper">
+        <slot />
+      </div>
+    </main>
+
+    <!-- Particle System -->
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+
+    <script src="/assets/js/script.js" is:inline></script>
+  </body>
+</html>

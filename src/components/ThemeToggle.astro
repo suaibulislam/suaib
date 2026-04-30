@@ -1,0 +1,110 @@
+---
+
+---
+
+<div class="theme-toggle">
+  <button class="theme-btn theme-toggle-btn" aria-label="Toggle theme">
+    <span class="theme-icon-container">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </span>
+    <span class="theme-label theme-current-label">dark</span>
+  </button>
+</div>
+
+<style>
+  .theme-toggle {
+    position: relative;
+  }
+
+  .theme-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--bg-secondary);
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-md, 10px);
+    color: var(--text-primary);
+    font-family: "Lexend", sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .theme-icon-container {
+    display: inline-flex;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    color: var(--primary-color);
+  }
+
+  .theme-icon-sun, .theme-icon-moon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  :global([data-theme="dark"]) .theme-icon-sun { opacity: 0; transform: rotate(45deg) scale(0); }
+  :global([data-theme="dark"]) .theme-icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+  
+  :global([data-theme="light"]) .theme-icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+  :global([data-theme="light"]) .theme-icon-moon { opacity: 0; transform: rotate(-45deg) scale(0); }
+
+  .theme-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(var(--primary-rgb), 0.05);
+  }
+
+  .theme-options {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.3rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    min-width: 2.5rem;
+    z-index: 1201;
+  }
+
+  .theme-options.show {
+    display: flex;
+  }
+
+  .theme-option {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text-secondary);
+  }
+
+  .theme-option:hover {
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary-color);
+  }
+
+  .theme-option.active {
+    background: rgba(var(--primary-rgb), 0.15);
+    border-color: rgba(var(--primary-rgb), 0.3);
+    color: var(--primary-color);
+  }
+</style>

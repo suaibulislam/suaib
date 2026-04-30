@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="none" stroke="#1f232b" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff8c00" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0b0e" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0a0b0e"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#grad)"/>
+
+  <text x="120" y="240" font-family="monospace, sans-serif" font-weight="bold" font-size="90" fill="#ff8c00">suaib<tspan fill="#a0a0a0">.</tspan></text>
+  
+  <text x="120" y="340" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff">i build small internet projects,</text>
+  <text x="120" y="390" font-family="sans-serif" font-size="32" font-weight="bold" fill="#ffffff">break them, and learn along the way.</text>
+
+  <rect x="120" y="520" width="960" height="4" fill="#ff8c00" rx="2"/>
+</svg>
