@@ -1,5 +1,4 @@
 ---
-
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const isActive = (path: string) => {
   const normalizedPath = path.replace(/\/$/, "");
@@ -10,16 +9,22 @@ const isActive = (path: string) => {
 
 <nav class="nav" id="main-nav">
   <div class="nav-links">
-    <a href="/" class={`nav-link ${isActive('/') ? 'active' : ''}`}>
+    <a href="/" class={`nav-link ${isActive("/") ? "active" : ""}`}>
       <span class="nav-text">about me</span>
     </a>
-    <a href="/projects" class={`nav-link ${isActive('/projects') ? 'active' : ''}`}>
+    <a
+      href="/projects"
+      class={`nav-link ${isActive("/projects") ? "active" : ""}`}
+    >
       <span class="nav-text">things i built</span>
     </a>
-    <a href="/blogs" class={`nav-link ${isActive('/blogs') ? 'active' : ''}`}>
+    <a href="/blogs" class={`nav-link ${isActive("/blogs") ? "active" : ""}`}>
       <span class="nav-text">rants</span>
     </a>
-    <a href="/contact" class={`nav-link ${isActive('/contact') ? 'active' : ''}`}>
+    <a
+      href="/contact"
+      class={`nav-link ${isActive("/contact") ? "active" : ""}`}
+    >
       <span class="nav-text">say hi</span>
     </a>
   </div>
@@ -41,12 +46,14 @@ const isActive = (path: string) => {
   .nav-link {
     color: var(--text-secondary, #a0a0a0);
     text-decoration: none;
-    font-family: 'Lexend', sans-serif;
+    font-family: "Lexend", sans-serif;
     font-size: 1rem;
     font-weight: 700;
     padding: 0.5rem 1rem;
     border-radius: var(--radius-sm, 6px);
-    transition: color 0.25s ease, background 0.25s ease;
+    transition:
+      color 0.25s ease,
+      background 0.25s ease;
     text-transform: lowercase;
     letter-spacing: 0.02em;
     position: relative;
@@ -118,6 +125,3 @@ const isActive = (path: string) => {
     }
   }
 </style>
-
-
-

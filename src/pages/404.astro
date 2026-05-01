@@ -1,73 +1,69 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Footer from "../components/Footer.astro";
 ---
 
 <BaseLayout
   title="oops zone - suaib"
-  description="this page ran away. it's not my fault. probably. here are some places that actually exist."
+  description="congrats, you found the void. it's very quiet here. maybe go back to a page that actually exists?"
   canonical="https://suaib.is-a.dev/404"
+  hideHeader={true}
 >
-  <section class="section page-404">
-    <div class="error-content">
-      <div class="error-visual">
-        <div class="error-code">404</div>
-        <div class="error-emoji">:)</div>
-      </div>
-
-      <h2 class="section-heading">this page ghosted you</h2>
-
-      <div class="about-content">
-        <p>
-          either the link is ancient, i renamed something, or the internet
-          gremlins ate it. sorry about that.
-        </p>
-      </div>
-
-      <div class="notfound-options">
-        <h3>places that actually exist</h3>
-        <div class="nav-grid">
-          <a href="/" class="nav-card">
-            <div class="nav-icon">a</div>
-            <div class="nav-text">
-              <div class="nav-title">about</div>
-              <div class="nav-desc">
-                the lore, the vibes, the human behind the code
-              </div>
-            </div>
-          </a>
-          <a href="/projects" class="nav-card">
-            <div class="nav-icon">p</div>
-            <div class="nav-text">
-              <div class="nav-title">projects</div>
-              <div class="nav-desc">things i built instead of sleeping</div>
-            </div>
-          </a>
-          <a href="/blogs" class="nav-card">
-            <div class="nav-icon">b</div>
-            <div class="nav-text">
-              <div class="nav-title">blogs</div>
-              <div class="nav-desc">my insights on things</div>
-            </div>
-          </a>
-          <a href="/contact" class="nav-card">
-            <div class="nav-icon">c</div>
-            <div class="nav-text">
-              <div class="nav-title">contact</div>
-              <div class="nav-desc">yell at me about this broken link</div>
-            </div>
-          </a>
+  <div class="full-page-wrapper">
+    <section class="section page-404">
+      <div class="error-content">
+        <div class="error-visual">
+          <div class="error-code">404</div>
+          <div class="error-emoji">:)</div>
         </div>
-      </div>
 
-      <div class="contact-note">
-        <p>
-          if this page should exist, blame me and send the broken link. i'll
-          pretend i meant to fix it all along.
-        </p>
-      </div>
-    </div>
-  </section>
+        <h2 class="section-heading">this page does not exist</h2>
 
-  <Footer />
+        <div class="about-content">
+          <p>
+            not sure how you got here. sorry about that.
+          </p>
+        </div>
+
+        <a href="/" class="back-link">← return to home</a>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    :global(.main-content) {
+      padding: 0 !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .full-page-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      width: 100%;
+      background-color: var(--bg-primary);
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+    
+    .back-link {
+      display: inline-block;
+      font-family: "JetBrains Mono", monospace;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      margin-top: 2rem;
+      border: 1px dashed var(--border-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+    }
+
+    .back-link:hover {
+      background: rgba(var(--primary-rgb), 0.05);
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+  </style>
 </BaseLayout>

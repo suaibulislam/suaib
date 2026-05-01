@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="time / suaib"
+  description="checking if we are in the same timeline."
+  canonical="https://suaib.is-a.dev/time"
+  hideHeader={true}
+>
+  <div class="time-lock-wrapper">
+    <section class="time-section">
+      <div class="time-main">
+        <span class="clock-icon"></span>
+        <span class="current-time" id="current-time">00:00:00</span>
+        <span class="my-offset">utc+6</span>
+      </div>
+
+      <div class="time-description">
+        <p>
+          <span id="time-sentence">detecting your timeline...</span>
+          <br />
+          <span class="location-note">the above time is the current time in dhaka, bangladesh, where i live.</span>
+        </p>
+      </div>
+
+      <a href="/" class="back-link">← go back</a>
+    </section>
+  </div>
+
+  <style>
+    /* Unlock the scroll bar and center content */
+    :global(html),
+    :global(body) {
+      overflow-y: auto !important;
+      height: auto !important;
+      min-height: 100vh;
+    }
+
+    :global(.main-content) {
+      padding: 0 !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+    }
+
+    .time-lock-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      width: 100%;
+      background-color: var(--bg-primary);
+      padding: 2rem;
+      box-sizing: border-box;
+    }
+
+    .time-section {
+      text-align: center;
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .time-main {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: clamp(0.5rem, 3vw, 2rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .clock-icon {
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      opacity: 0.8;
+      align-self: center;
+    }
+
+    .current-time {
+      font-family: "Lexend", sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 12vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: var(--text-primary);
+      text-shadow: 0 0 30px rgba(var(--primary-rgb), 0.08);
+    }
+
+    .my-offset {
+      font-family: "Lexend", sans-serif;
+      font-weight: 900;
+      font-size: clamp(1.2rem, 6vw, 3rem);
+      color: var(--primary-color);
+      letter-spacing: -0.04em;
+      opacity: 0.9;
+    }
+
+    .time-description {
+      margin-top: 1rem;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .time-description p {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      line-height: 1.4;
+      font-weight: 400;
+      opacity: 0.9;
+      letter-spacing: -0.01em;
+    }
+
+    .location-note {
+      opacity: 0.9;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      font-family: "JetBrains Mono", monospace;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      margin-top: 3.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+    }
+
+    .back-link:hover {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      background: rgba(var(--primary-rgb), 0.05);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      .time-main {
+        gap: 0.5rem;
+      }
+      .time-lock-wrapper {
+        padding: 1rem;
+      }
+    }
+  </style>
+</BaseLayout>

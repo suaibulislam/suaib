@@ -1,5 +1,4 @@
 ---
-
 export interface Props {
   title: string;
   description: string;
@@ -11,34 +10,65 @@ export interface Props {
   featured?: boolean;
 }
 
-const { title, description, tech, status, slug, github, demo, featured = false } = Astro.props;
+const {
+  title,
+  description,
+  tech,
+  status,
+  slug,
+  github,
+  demo,
+  featured = false,
+} = Astro.props;
 ---
 
-<article class={`project-card ${featured ? 'featured' : ''}`}>
+<article class={`project-card ${featured ? "featured" : ""}`}>
   <div class="project-icon-wrapper">
     <div class="project-icon">{title.charAt(0).toLowerCase()}</div>
   </div>
-  
+
   <div class="project-content">
     <h3 class="project-title">
       <a href={`/projects/${slug}`}>{title}</a>
     </h3>
     <p class="project-description">{description}</p>
-    
+
     <div class="project-footer">
       <div class="tech-tags">
-        {tech.slice(0, 3).map(techItem => (
-          <span class="tech-tag">{techItem}</span>
-        ))}
+        {
+          tech
+            .slice(0, 3)
+            .map((techItem) => <span class="tech-tag">{techItem}</span>)
+        }
       </div>
-      
+
       <div class="project-actions">
-        {github && (
-          <a href={github} class="action-link" target="_blank" rel="noopener" aria-label="GitHub">gh</a>
-        )}
-        {demo && (
-          <a href={demo} class="action-link" target="_blank" rel="noopener" aria-label="Demo">live</a>
-        )}
+        {
+          github && (
+            <a
+              href={github}
+              class="action-link"
+              target="_blank"
+              rel="noopener"
+              aria-label="GitHub"
+            >
+              gh
+            </a>
+          )
+        }
+        {
+          demo && (
+            <a
+              href={demo}
+              class="action-link"
+              target="_blank"
+              rel="noopener"
+              aria-label="Demo"
+            >
+              live
+            </a>
+          )
+        }
         <span class={`status-badge status-${status}`}>{status}</span>
       </div>
     </div>
@@ -85,7 +115,7 @@ const { title, description, tech, status, slug, github, demo, featured = false }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Lexend', sans-serif;
+    font-family: "Lexend", sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--primary-color);
@@ -102,7 +132,7 @@ const { title, description, tech, status, slug, github, demo, featured = false }
   }
 
   .project-title {
-    font-family: 'Lexend', sans-serif;
+    font-family: "Lexend", sans-serif;
     font-size: 1.25rem;
     color: var(--text-primary);
     margin: 0;
@@ -154,7 +184,7 @@ const { title, description, tech, status, slug, github, demo, featured = false }
     background: transparent;
     border-radius: var(--radius-sm, 6px);
     border: 3px dotted var(--border-color);
-    font-family: 'Lexend', sans-serif;
+    font-family: "Lexend", sans-serif;
     font-weight: 500;
   }
 
@@ -167,7 +197,7 @@ const { title, description, tech, status, slug, github, demo, featured = false }
   }
 
   .action-link {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "JetBrains Mono", monospace;
     font-size: 0.75rem;
     text-decoration: none;
     color: var(--primary-color);
@@ -184,7 +214,7 @@ const { title, description, tech, status, slug, github, demo, featured = false }
   }
 
   .status-badge {
-    font-family: 'JetBrains Mono', monospace;
+    font-family: "JetBrains Mono", monospace;
     font-size: 0.7rem;
     padding: 0.1rem 0.4rem;
     border-radius: var(--radius-sm, 6px);

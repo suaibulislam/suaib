@@ -2,78 +2,44 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import TechStack from "../components/TechStack.astro";
-import TimezoneWidget from "../components/TimezoneWidget.astro";
 ---
 
 <BaseLayout
   title="suaib / home base"
-  description="i'm suaib. i build small internet projects, break them, and somehow learn things along the way."
+  description="i build things, break things, and then google why they broke. welcome to the chaos."
   canonical="https://suaib.is-a.dev/"
 >
   <section class="about-section">
     <h2 class="section-heading">hello</h2>
     <div class="about-content">
       <p>
-        i'm <span class="name-accent">suaib</span>, a student from bangladesh. i
-        spend way too much time watching anime and playing clash of clans. somewhere in between, i make stuff for the
-        internet. half the time the code works and i don't really know why — that's the whole process.
-      </p>
-
-      <p id="time-signoff" class="time-signoff" aria-live="polite">
-        have a good day!
+        i'm suaib. i watch anime, play clash of clans, and make small things for
+        the internet. i don't really have a specialty. i just try stuff until it
+        works.
       </p>
 
       <TechStack />
 
       <div class="philosophy">
-        <h3 class="portal-heading">how the chaos works</h3>
+        <h3 class="portal-heading">how i do things</h3>
         <div class="nav-grid portal-grid">
           <div class="nav-card stat-card">
             <div class="nav-icon">!</div>
             <div class="nav-text">
-              <div class="nav-title">don't overthink</div>
-              <div class="nav-desc">
-                code now, think later. (as if i don't overthink anyway). ctrl+z exists for a
-                reason.
-              </div>
-            </div>
-          </div>
-          <div class="nav-card stat-card">
-            <div class="nav-icon">~</div>
-            <div class="nav-text">
-              <div class="nav-title">the toolbox</div>
-              <div class="nav-desc">
-                docs, stackoverflow, and asking AI stupid questions.
-              </div>
-            </div>
-          </div>
-          <div class="nav-card stat-card">
-            <div class="nav-icon">?</div>
-            <div class="nav-text">
-              <div class="nav-title">learn by doing</div>
-              <div class="nav-desc">
-                actually true. if you want to learn it, you just gotta build it yourself.
-              </div>
+              <div class="nav-title">vibe check</div>
+              <div class="nav-desc">i work when i feel like it.</div>
             </div>
           </div>
           <div class="nav-card stat-card">
             <div class="nav-icon">&</div>
             <div class="nav-text">
-              <div class="nav-title">ship it ugly</div>
-              <div class="nav-desc">
-                done beats perfect. i can always refactor it tomorrow. (i
-                won't.)
-              </div>
+              <div class="nav-title">the process</div>
+              <div class="nav-desc">i just try stuff until it works.</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="timezone-section">
-    <h2 class="section-heading">what time is it in my cave</h2>
-    <TimezoneWidget />
   </section>
 
   <Footer />
@@ -102,7 +68,7 @@ import TimezoneWidget from "../components/TimezoneWidget.astro";
   }
 
   .philosophy {
-    margin: 4rem 0;
+    margin: 2rem 0;
   }
 
   .portal-heading {

@@ -2,17 +2,15 @@
 const techItems = [
   "javascript",
   "python",
-  "react",
-  "node.js",
-  "git",
   "html",
   "css",
   "astro",
+  "git",
 ];
 ---
 
 <div class="tech-stack">
-  <h3>stuff i'm into</h3>
+  <h3 class="tech-heading">stuff i use</h3>
   <div class="tech-list">
     {techItems.map((tech) => <span class="tech-item">{tech}</span>)}
   </div>
@@ -23,12 +21,13 @@ const techItems = [
     margin: 2rem 0 1rem;
   }
 
-  .tech-stack h3 {
+  .tech-heading {
     font-family: "Sora", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     letter-spacing: -0.01em;
+    text-transform: lowercase;
   }
 </style>

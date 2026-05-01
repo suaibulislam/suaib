@@ -1,75 +1,70 @@
 const initApp = () => {
-    function updateGreeting() {
-        const signoffEl = document.getElementById('time-signoff');
-        if (!signoffEl) return;
+    const myTimezone = 'Asia/Dhaka';
 
-        const hour = new Date().getHours();
-        let signoff = 'have a good day!';
-        if (hour >= 12 && hour < 17) signoff = 'hope your afternoon is going well.';
-        else if (hour >= 17 && hour < 21) signoff = 'have a calm evening.';
-        else if (hour >= 21 || hour < 5) signoff = 'good night and take care.';
+    function updateFooterTime() {
+        const footerTimeEl = document.getElementById('footer-time');
+        if (!footerTimeEl) return;
 
-        signoffEl.textContent = signoff;
+        const now = new Date();
+        const myTime = new Date(now.toLocaleString('en-US', { timeZone: myTimezone }));
+
+        footerTimeEl.textContent = myTime.toLocaleTimeString('en-GB', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit'
+        });
     }
+
+    let timezoneInterval;
 
     function initTimezone() {
         const currentTimeEl = document.getElementById('current-time');
-        const timezoneToggle = document.getElementById('timezone-toggle');
-        const timezoneDetails = document.getElementById('timezone-details');
-        const visitorTimezoneEl = document.getElementById('visitor-timezone');
-        const timeDifferenceEl = document.getElementById('time-difference');
+        const timeSentenceEl = document.getElementById('time-sentence');
+        
+        if (timezoneInterval) clearInterval(timezoneInterval);
         if (!currentTimeEl) return;
 
-        const myTimezone = 'Asia/Dhaka';
         const myOffset = 6;
 
         const updateTime = () => {
             const now = new Date();
             const myTime = new Date(now.toLocaleString('en-US', { timeZone: myTimezone }));
-            currentTimeEl.textContent = myTime.toLocaleTimeString('en-US', {
+            
+            // Update Clock
+            currentTimeEl.textContent = myTime.toLocaleTimeString('en-GB', {
                 hour12: false,
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit'
             });
 
-            const visitorOffset = -now.getTimezoneOffset() / 60;
-            const offsetDiff = myOffset - visitorOffset;
+            // Calculate Greeting and Sentence
+            if (timeSentenceEl) {
+                const hours = myTime.getHours();
+                let greeting = 'good evening';
+                if (hours < 12) greeting = 'good morning';
+                else if (hours < 18) greeting = 'good afternoon';
 
-            if (visitorTimezoneEl) {
-                visitorTimezoneEl.textContent = `UTC${visitorOffset >= 0 ? '+' : ''}${visitorOffset}`;
-            }
-            if (timeDifferenceEl) {
-                timeDifferenceEl.textContent =
-                    offsetDiff === 0
-                        ? 'yes, we are in the exact same timeline.'
-                        : offsetDiff > 0
-                            ? `nope, i am ${offsetDiff} hours in the future.`
-                            : `nope, i am ${Math.abs(offsetDiff)} hours stuck in the past.`;
-            }
-            
-            if (timezoneToggle && (!timezoneDetails || timezoneDetails.style.display === 'none' || !timezoneDetails.style.display)) {
-                timezoneToggle.textContent = offsetDiff === 0 
-                    ? 'yes, we are in the same timeline'
-                    : `nope, i'm ${Math.abs(offsetDiff)}h ${offsetDiff > 0 ? 'ahead' : 'behind'} of u (show math)`;
+                const visitorOffset = -now.getTimezoneOffset() / 60;
+                const offsetDiff = myOffset - visitorOffset;
+
+                const visitorTzString = `utc${visitorOffset >= 0 ? '+' : ''}${visitorOffset}`;
+                
+                let diffString = '';
+                if (offsetDiff === 0) {
+                    diffString = 'which is the exact same as my timezone';
+                } else {
+                    const absDiff = Math.abs(offsetDiff);
+                    const rel = offsetDiff > 0 ? 'behind' : 'ahead';
+                    diffString = `which is ${absDiff} ${absDiff === 1 ? 'hour' : 'hours'} ${rel} of my timezone`;
+                }
+
+                timeSentenceEl.innerHTML = `${greeting}, your timezone is <span style="color: var(--primary-color); font-weight: 500;">${visitorTzString}</span>, ${diffString}.`;
             }
         };
 
-        if (timezoneToggle && timezoneDetails) {
-            timezoneToggle.addEventListener('click', () => {
-                const isHidden = timezoneDetails.style.display === 'none' || !timezoneDetails.style.display;
-                timezoneDetails.style.display = isHidden ? 'block' : 'none';
-                
-                if (isHidden) {
-                    timezoneToggle.textContent = 'hide the math';
-                } else {
-                    updateTime();
-                }
-            });
-        }
-
         updateTime();
-        setInterval(updateTime, 1000);
+        timezoneInterval = setInterval(updateTime, 1000);
     }
 
     function showModal(title, text) {
@@ -165,7 +160,7 @@ const initApp = () => {
         const setTheme = (theme) => {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
-            
+
             themeButtons.forEach(btn => {
                 const label = btn.querySelector('.theme-current-label');
                 if (label) label.textContent = theme;
@@ -180,14 +175,14 @@ const initApp = () => {
             btn.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                 const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
+
                 if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                     setTheme(nextTheme);
                     return;
                 }
 
                 document.documentElement.classList.add('theme-transitioning');
-                
+
                 const transition = document.startViewTransition(() => {
                     setTheme(nextTheme);
                 });
@@ -232,7 +227,7 @@ const initApp = () => {
 
     function initCodeBlocks() {
         const codeBlocks = document.querySelectorAll('.prose-content pre');
-        
+
         codeBlocks.forEach((block) => {
             if (block.querySelector('.copy-button')) return;
 
@@ -240,7 +235,7 @@ const initApp = () => {
             if (!code) return;
 
             const lang = code.className.replace('language-', '') || 'code';
-            
+
             const header = document.createElement('div');
             header.className = 'code-header';
             header.innerHTML = `
@@ -250,17 +245,17 @@ const initApp = () => {
                     <span class="copy-text">copy</span>
                 </button>
             `;
-            
+
             block.insertBefore(header, block.firstChild);
 
             const button = header.querySelector('.copy-button');
             button.addEventListener('click', async () => {
                 const text = code.innerText;
                 await navigator.clipboard.writeText(text);
-                
+
                 button.classList.add('copied');
                 button.querySelector('.copy-text').textContent = 'copied!';
-                
+
                 setTimeout(() => {
                     button.classList.remove('copied');
                     button.querySelector('.copy-text').textContent = 'copy';
@@ -269,7 +264,8 @@ const initApp = () => {
         });
     }
 
-    updateGreeting();
+    updateFooterTime();
+    setInterval(updateFooterTime, 60000); // Update footer time every minute
     initTimezone();
     initContactForm();
     initThemeSystem();

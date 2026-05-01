@@ -1,85 +1,101 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Footer from '../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog')).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const posts = (await getCollection("blog")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 const hasPosts = posts.length > 0;
 ---
 
-<BaseLayout 
-  title="rants - suaib" 
+<BaseLayout
+  title="rants - suaib"
   description="sometimes i write things down. when i do, they show up here."
   canonical="https://suaib.is-a.dev/blogs"
 >
   <section class="blogs-section">
     <div class="rants-header">
       <h2 class="section-heading">rants</h2>
-      <p class="rants-subtitle">sometimes i write things down. when i do, they show up here.</p>
+      <p class="rants-subtitle">
+        sometimes i write things down. when i do, they show up here.
+      </p>
     </div>
 
-    {hasPosts ? (
-      <div class="blog-container">
-        <div class="search-wrapper">
-          <input 
-            type="text" 
-            id="blog-search" 
-            placeholder="search rants..." 
-            aria-label="Search blog posts"
-          />
-        </div>
+    {
+      hasPosts ? (
+        <div class="blog-container">
+          <div class="search-wrapper">
+            <input
+              type="text"
+              id="blog-search"
+              placeholder="search rants..."
+              aria-label="Search blog posts"
+            />
+          </div>
 
-        <div class="blog-list" id="blog-list">
-          {posts.map((post) => (
-            <a href={`/blogs/${post.slug}`} class="blog-entry" data-title={post.data.title.toLowerCase()}>
-              <span class="blog-title">{post.data.title}</span>
-              <span class="blog-date">
-                {new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-              </span>
-            </a>
-          ))}
-        </div>
+          <div class="blog-list" id="blog-list">
+            {posts.map((post) => (
+              <a
+                href={`/blogs/${post.slug}`}
+                class="blog-entry"
+                data-title={post.data.title.toLowerCase()}
+              >
+                <span class="blog-title">{post.data.title}</span>
+                <span class="blog-date">
+                  {new Date(post.data.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
+              </a>
+            ))}
+          </div>
 
-        <div id="no-results" class="empty-state" style="display: none; margin-top: 2rem;">
-          <p>nothing matches that. maybe i haven't ranted about it yet.</p>
+          <div
+            id="no-results"
+            class="empty-state"
+            style="display: none; margin-top: 2rem;"
+          >
+            <p>nothing matches that. maybe i haven't ranted about it yet.</p>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div class="empty-state">
-        <p>nothing here yet. i swear i'll write something eventually.</p>
-        <p class="subtle">check back later. or don't. no pressure.</p>
-      </div>
-    )}
+      ) : (
+        <div class="empty-state">
+          <p>nothing here yet.</p>
+          <p class="subtle">check back later. or don't.</p>
+        </div>
+      )
+    }
   </section>
 
   <Footer />
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById('blog-search');
-  const blogList = document.getElementById('blog-list');
-  const blogEntries = document.querySelectorAll('.blog-entry:not(.drafting)');
-  const noResults = document.getElementById('no-results');
+  const searchInput = document.getElementById("blog-search");
+  const blogList = document.getElementById("blog-list");
+  const blogEntries = document.querySelectorAll(".blog-entry:not(.drafting)");
+  const noResults = document.getElementById("no-results");
 
   if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener("input", (e) => {
       const query = (e.target as HTMLInputElement).value.toLowerCase();
       let visibleCount = 0;
 
       blogEntries.forEach((entry) => {
-        const title = entry.getAttribute('data-title') || '';
+        const title = entry.getAttribute("data-title") || "";
         if (title.includes(query)) {
-          (entry as HTMLElement).style.display = 'flex';
+          (entry as HTMLElement).style.display = "flex";
           visibleCount++;
         } else {
-          (entry as HTMLElement).style.display = 'none';
+          (entry as HTMLElement).style.display = "none";
         }
       });
 
       if (noResults) {
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
       }
     });
   }
