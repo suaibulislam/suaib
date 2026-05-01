@@ -15,57 +15,7 @@ const initApp = () => {
         });
     }
 
-    let timezoneInterval;
 
-    function initTimezone() {
-        const currentTimeEl = document.getElementById('current-time');
-        const timeSentenceEl = document.getElementById('time-sentence');
-        
-        if (timezoneInterval) clearInterval(timezoneInterval);
-        if (!currentTimeEl) return;
-
-        const myOffset = 6;
-
-        const updateTime = () => {
-            const now = new Date();
-            const myTime = new Date(now.toLocaleString('en-US', { timeZone: myTimezone }));
-            
-            // Update Clock
-            currentTimeEl.textContent = myTime.toLocaleTimeString('en-GB', {
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-
-            // Calculate Greeting and Sentence
-            if (timeSentenceEl) {
-                const hours = myTime.getHours();
-                let greeting = 'good evening';
-                if (hours < 12) greeting = 'good morning';
-                else if (hours < 18) greeting = 'good afternoon';
-
-                const visitorOffset = -now.getTimezoneOffset() / 60;
-                const offsetDiff = myOffset - visitorOffset;
-
-                const visitorTzString = `utc${visitorOffset >= 0 ? '+' : ''}${visitorOffset}`;
-                
-                let diffString = '';
-                if (offsetDiff === 0) {
-                    diffString = 'which is the exact same as my timezone';
-                } else {
-                    const absDiff = Math.abs(offsetDiff);
-                    const rel = offsetDiff > 0 ? 'behind' : 'ahead';
-                    diffString = `which is ${absDiff} ${absDiff === 1 ? 'hour' : 'hours'} ${rel} of my timezone`;
-                }
-
-                timeSentenceEl.innerHTML = `${greeting}, your timezone is <span style="color: var(--primary-color); font-weight: 500;">${visitorTzString}</span>, ${diffString}.`;
-            }
-        };
-
-        updateTime();
-        timezoneInterval = setInterval(updateTime, 1000);
-    }
 
     function showModal(title, text) {
         const modal = document.getElementById('modal');
@@ -264,9 +214,9 @@ const initApp = () => {
         });
     }
 
-    updateFooterTime();
-    setInterval(updateFooterTime, 60000); // Update footer time every minute
-    initTimezone();
+    // tick footer clock
+    setInterval(updateFooterTime, 60000);
+
     initContactForm();
     initThemeSystem();
     initMobileMenu();

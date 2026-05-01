@@ -65,7 +65,7 @@ const {
     </script>
     <ClientRouter />
 
-    <!-- Open Graph / Facebook -->
+    <!-- seo -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="suaib" />
@@ -74,7 +74,7 @@ const {
     <meta property="og:image" content={ogImage} />
     <meta name="theme-color" content="#ff8c42" />
 
-    <!-- Twitter -->
+    <!-- twitter -->
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
@@ -93,14 +93,14 @@ const {
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Lexend:wght@300..800&display=swap"
       rel="stylesheet"
     />
-    <!-- Preload pages for instant navigation -->
+    <!-- prefetch -->
     <link rel="prefetch" href="/projects" />
     <link rel="prefetch" href="/blogs" />
     <link rel="prefetch" href="/contact" />
 
     <link rel="canonical" href={canonical} />
 
-    <!-- Structured Data -->
+    <!-- schema -->
     <script type="application/ld+json" is:inline>
       {
         "@context": "https://schema.org",
