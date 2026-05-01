@@ -74,31 +74,35 @@ const hasPosts = posts.length > 0;
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById("blog-search");
-  const blogList = document.getElementById("blog-list");
-  const blogEntries = document.querySelectorAll(".blog-entry:not(.drafting)");
-  const noResults = document.getElementById("no-results");
+  function setupSearch() {
+    const searchInput = document.getElementById("blog-search");
+    const blogEntries = document.querySelectorAll(".blog-entry:not(.drafting)");
+    const noResults = document.getElementById("no-results");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = (e.target as HTMLInputElement).value.toLowerCase();
-      let visibleCount = 0;
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase();
+        let visibleCount = 0;
 
-      blogEntries.forEach((entry) => {
-        const title = entry.getAttribute("data-title") || "";
-        if (title.includes(query)) {
-          (entry as HTMLElement).style.display = "flex";
-          visibleCount++;
-        } else {
-          (entry as HTMLElement).style.display = "none";
+        blogEntries.forEach((entry) => {
+          const title = entry.getAttribute("data-title") || "";
+          if (title.includes(query)) {
+            (entry as HTMLElement).style.display = "flex";
+            visibleCount++;
+          } else {
+            (entry as HTMLElement).style.display = "none";
+          }
+        });
+
+        if (noResults) {
+          noResults.style.display = visibleCount === 0 ? "block" : "none";
         }
       });
-
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-      }
-    });
+    }
   }
+
+  // Initialize on first load and after every view transition
+  document.addEventListener("astro:page-load", setupSearch);
 </script>
 
 <style>
