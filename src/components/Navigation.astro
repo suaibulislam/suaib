@@ -1,7 +1,11 @@
 ---
 
-const currentPath = Astro.url.pathname;
-const isActive = (path: string) => currentPath === path;
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+const isActive = (path: string) => {
+  const normalizedPath = path.replace(/\/$/, "");
+  if (normalizedPath === "") return currentPath === "";
+  return currentPath.startsWith(normalizedPath);
+};
 ---
 
 <nav class="nav" id="main-nav">
