@@ -1,5 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const myTimezone = 'Asia/Dhaka';
+const now = new Date();
+const initialTime = now.toLocaleTimeString('en-GB', {
+  timeZone: myTimezone,
+  hour12: false,
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit'
+});
 ---
 
 <BaseLayout
@@ -12,7 +22,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <section class="time-section">
       <div class="time-main">
         <span class="clock-icon"></span>
-        <span class="current-time" id="current-time">00:00:00</span>
+        <span class="current-time" id="current-time">{initialTime}</span>
         <span class="my-offset">utc+6</span>
       </div>
 
