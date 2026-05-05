@@ -15,7 +15,6 @@ html {
     color-scheme: dark light;
 }
 
-/* Custom Selection */
 ::selection {
     background-color: var(--primary-color);
     color: #ffffff;
@@ -36,7 +35,6 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.5;
-    /* min-height removed */
     font-weight: 400;
     font-smooth: antialiased;
     -webkit-font-smoothing: antialiased;
@@ -84,7 +82,6 @@ body::after {
     opacity: 1;
 }
 
-/* ui — prevent text selection on interactive elements */
 .nav-link,
 .social-link,
 .tech-tag {
@@ -264,7 +261,6 @@ body::after {
     line-height: 1.4;
 }
 
-/* 404 overrides moved to global */
 .page-404 .nav-grid {
     max-width: 500px;
 }
@@ -909,7 +905,6 @@ body::after {
     }
 }
 
-/* focus-visible — keyboard outlines only */
 .nav-link:focus-visible,
 .nav-card:focus-visible {
     outline: 2px solid rgba(var(--primary-rgb), 0.5);
@@ -961,7 +956,6 @@ html {
 
 
 
-/* back link — shared component for blog posts etc. */
 .back-link {
     display: inline-flex;
     align-items: center;
