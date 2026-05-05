@@ -16,7 +16,7 @@ const { Content } = await project.render();
 ---
 
 <BaseLayout 
-  title={`${project.data.title.toLowerCase()} / suaib`}
+  title={`${project.data.title.toLowerCase()}`}
   description={project.data.description}
   canonical={`https://suaib.is-a.dev/projects/${project.slug}`}
 >
@@ -61,8 +61,7 @@ const { Content } = await project.render();
     
     <nav class="project-nav">
       <a href="/projects" class="back-link">
-        <span class="back-icon">⇠</span>
-        back to stuff i built
+        ← back to projects
       </a>
     </nav>
   </article>
@@ -179,27 +178,7 @@ const { Content } = await project.render();
     border-top: 3px dotted var(--border-color);
   }
 
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-family: 'Lexend', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-  }
 
-  .back-link:hover {
-    color: var(--primary-color);
-    transform: translateX(-5px);
-  }
-
-  .back-icon {
-    font-size: 1.4rem;
-    line-height: 1;
-  }
 
   @media (max-width: 600px) {
     .project-header {

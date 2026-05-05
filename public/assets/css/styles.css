@@ -46,7 +46,7 @@ body {
     overflow-y: visible;
 }
 
-/* Premium Matte Film Grain Overlay */
+/* grain overlay */
 body::after {
     content: '';
     position: fixed;
@@ -61,17 +61,7 @@ body::after {
     mix-blend-mode: overlay;
 }
 
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    pointer-events: none;
-    z-index: -1;
-}
+
 
 .skip-link {
     position: absolute;
@@ -94,117 +84,12 @@ body::before {
     opacity: 1;
 }
 
-/* Header layout is now component-scoped in Header.astro */
-
-/* .main-title removed — brand is in Header.astro */
-
-/* .nav layout is now component-scoped in Navigation.astro */
-
-/* .nav-links is now component-scoped in Navigation.astro */
-
-/* UI Component text selection prevention */
+/* ui — prevent text selection on interactive elements */
 .nav-link,
-.control-btn,
-.theme-btn,
-.submit-btn,
-.timezone-toggle,
-.brand,
 .social-link,
 .tech-tag {
     user-select: none;
     -webkit-user-select: none;
-}
-
-/* Rhythm Fix: Disable interactions during theme toggle to fix visual bugs */
-html.theme-transitioning {
-    pointer-events: none;
-}
-
-.nav-link:hover {
-    color: var(--text-primary);
-    background: rgba(var(--primary-rgb), 0.05);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
-}
-
-.nav-link.active {
-    color: var(--primary-color);
-    background: rgba(var(--primary-rgb), 0.12);
-    border-color: rgba(var(--primary-rgb), 0.25);
-    transform: rotate(0deg);
-}
-
-.nav-links .nav-link:nth-child(2) {
-    transform: rotate(0.5deg);
-}
-
-/* Theme toggle styles are now component-scoped in ThemeToggle.astro */
-
-/* Navigation animations */
-.nav-link::before {
-    content: '';
-    position: absolute;
-    left: var(--ripple-x, 50%);
-    top: var(--ripple-y, 50%);
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(var(--primary-rgb), 0.15);
-    transform: translate(-50%, -50%) scale(0);
-    pointer-events: none;
-}
-
-.nav-link.is-animating {
-    letter-spacing: 0.18em;
-    color: var(--text-primary);
-    text-shadow: 0 0 12px rgba(var(--primary-rgb), 0.35);
-}
-
-.nav-link.is-animating::before {
-    width: 220px;
-    height: 220px;
-    animation: navRipple 520ms ease-out forwards;
-}
-
-.nav-link.is-animating::after {
-    animation: navUnderlineFlash 520ms ease-out forwards;
-}
-
-@keyframes navRipple {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0.9;
-    }
-
-    60% {
-        opacity: 0.35;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0;
-    }
-}
-
-@keyframes navUnderlineFlash {
-    0% {
-        width: 0;
-    }
-
-    35% {
-        width: 100%;
-    }
-
-    60% {
-        width: 35%;
-    }
-
-    100% {
-        width: 100%;
-    }
 }
 
 .page-404 .section {
@@ -384,17 +269,7 @@ html.theme-transitioning {
     max-width: 500px;
 }
 
-.page-404 .contact-note {
-    margin-top: 2rem;
-    text-align: center;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.page-404 .contact-note p {
-    text-align: center;
-}
 
 @media (max-width: 768px) {
     .page-404 .error-visual {
@@ -429,7 +304,7 @@ html.theme-transitioning {
     box-sizing: border-box;
     text-align: left;
     position: relative;
-    z-index: 10;
+
 }
 
 .content-wrapper {
@@ -987,7 +862,7 @@ html.theme-transitioning {
     .about-section,
     .timezone-section,
     .projects-section,
-    .contact-section,
+    .connect-section,
     .blogs-section,
     .blog-post,
     .page-404 {
@@ -1010,15 +885,7 @@ html.theme-transitioning {
         padding-right: 0;
     }
 
-    .contact-item {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
 
-    .contact-label {
-        min-width: auto;
-    }
 
     .footer {
         margin-top: 1.5rem;
@@ -1042,11 +909,8 @@ html.theme-transitioning {
     }
 }
 
-/* Use focus-visible only so mouse clicks don't show outlines */
+/* focus-visible — keyboard outlines only */
 .nav-link:focus-visible,
-.contact-link:focus-visible,
-.timezone-toggle:focus-visible,
-.submit-btn:focus-visible,
 .nav-card:focus-visible {
     outline: 2px solid rgba(var(--primary-rgb), 0.5);
     outline-offset: 2px;
@@ -1054,32 +918,13 @@ html.theme-transitioning {
 }
 
 .nav-link:focus:not(:focus-visible),
-.contact-link:focus:not(:focus-visible),
-.timezone-toggle:focus:not(:focus-visible),
-.submit-btn:focus:not(:focus-visible),
 .nav-card:focus:not(:focus-visible) {
     outline: none;
 }
 
-/* Extra bottom padding on mobile for the floating dock */
-@media (max-width: 640px) {
-    body {
-        padding-bottom: 4.5rem;
-    }
-}
 
-button:focus,
-input:focus,
-textarea:focus {
-    outline: none;
-}
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    background: rgba(var(--primary-rgb), 0.05);
-}
+
 
 ::-webkit-scrollbar {
     width: 3px;
@@ -1114,144 +959,27 @@ html {
     }
 }
 
-.nav-link:hover {
+
+
+/* back link — shared component for blog posts etc. */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 2.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 3px dotted var(--border-color);
+    border-radius: var(--radius-md, 12px);
+    text-transform: lowercase;
+}
+
+.back-link:hover {
     color: var(--primary-color);
-}
-
-/* Particles hidden as per previous feedback */
-
-html.theme-transitioning::view-transition-old(root),
-html.theme-transitioning::view-transition-new(root) {
-    animation-duration: 300ms;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    mix-blend-mode: normal;
-}
-
-html.theme-transitioning::view-transition-old(root) {
-    animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
-}
-
-html.theme-transitioning::view-transition-new(root) {
-    animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both fade-in;
-}
-
-/* Prevent CSS transitions from fighting the View Transition cross-fade */
-html.theme-transitioning * {
-    transition: none !important;
-}
-
-@keyframes fade-out {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-
-html {
-    scroll-behavior: smooth;
-}
-
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-.loading::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 2px solid rgba(var(--primary-rgb), 0.2);
-    border-top: 2px solid var(--primary-color);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-    border-radius: 4px;
-}
-
-.ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(var(--primary-rgb), 0.25);
-    transform: scale(0);
-    animation: ripple-animation 0.6s linear;
-    pointer-events: none;
-}
-
-@keyframes ripple-animation {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-.form-group.focused label {
-    color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-.form-group.has-value label {
-    color: var(--primary-color);
-    font-weight: 500;
-}
-
-.form-group.focused input,
-.form-group.focused textarea {
     border-color: var(--primary-color);
-}
-
-.animate-in {
-    animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-@media (max-width: 768px) {
-
-    .tech-item:hover,
-    .project-item:hover {
-        transform: none;
-    }
-
-    .tech-item:active {
-        transform: scale(0.95);
-    }
-
-    .project-item:active {
-        transform: translateX(4px) scale(1.01);
-    }
-
-    .project-item:active {
-        transform: translateX(4px) scale(1.01);
-    }
+    background: rgba(var(--primary-rgb), 0.05);
+    transform: translateY(-2px);
 }

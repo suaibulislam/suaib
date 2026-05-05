@@ -9,5 +9,5 @@ github: "https://github.com/suaibulislam/emolink"
 ---
 
 ### **overview**
-a discord bot for poor ppl like u and me who want custom emojis and stickers without paying for nitro.
-it snatches direct cdn links so u can yoink assets for free.
+a discord bot that grabs direct cdn links for emojis and stickers.
+built it because i wanted custom emojis without paying.

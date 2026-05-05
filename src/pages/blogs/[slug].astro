@@ -24,7 +24,7 @@ const { Content } = await post.render();
 ---
 
 <BaseLayout
-  title={`${post.data.title.toLowerCase()} / suaib`}
+  title={`${post.data.title.toLowerCase()}`}
   description={post.data.description}
   canonical={`https://suaib.is-a.dev/blogs/${post.slug}`}
 >
@@ -100,7 +100,7 @@ const { Content } = await post.render();
             ><line x1="19" y1="12" x2="5" y2="12"></line><polyline
               points="12 19 5 12 12 5"></polyline></svg
           >
-          back to rants
+          back to blogs
         </a>
       </div>
     </footer>
@@ -225,21 +225,7 @@ const { Content } = await post.render();
     text-align: center;
   }
 
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-family: "Lexend", sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: color 0.2s ease;
-  }
 
-  .back-link:hover {
-    color: var(--primary-color);
-  }
 
   @media (max-width: 600px) {
     .post-navigation {

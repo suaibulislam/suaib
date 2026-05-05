@@ -10,13 +10,13 @@ const hasPosts = posts.length > 0;
 ---
 
 <BaseLayout
-  title="rants / suaib"
-  description="a collection of my thoughts and rants."
+  title="suaib's blogs"
+  description="notes and rants. updated occasionally."
   canonical="https://suaib.is-a.dev/blogs"
 >
   <section class="blogs-section">
     <div class="rants-header">
-      <h1 class="section-heading">rants</h1>
+      <h1 class="section-heading">blogs</h1>
       <p class="rants-subtitle">
         sometimes i write things down. when i do, they show up here.
       </p>
@@ -29,7 +29,7 @@ const hasPosts = posts.length > 0;
             <input
               type="text"
               id="blog-search"
-              placeholder="search rants..."
+              placeholder="search blogs..."
               aria-label="Search blog posts"
             />
           </div>
@@ -58,7 +58,7 @@ const hasPosts = posts.length > 0;
             class="empty-state"
             style="display: none; margin-top: 2rem;"
           >
-            <p>nothing matches that. maybe i haven't ranted about it yet.</p>
+            <p>nothing matches that. maybe i haven't written about it yet.</p>
           </div>
         </div>
       ) : (

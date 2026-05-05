@@ -10,8 +10,37 @@ const currentYear = new Date().getFullYear();
       <span>made in bangladesh</span>
       <span class="sep">/</span>
       <span
-        >it's <a href="/time" id="footer-time" class="footer-time">00:00</a> here</span
+        >it's <a href="/time" id="footer-time" class="footer-time" aria-label="current time in dhaka">--:--</a> here</span
       >
+      <script is:inline>
+        (function() {
+          let interval;
+          function updateFooterTime() {
+            const el = document.getElementById('footer-time');
+            if (el) {
+              const now = new Date();
+              const myTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }));
+              el.textContent = myTime.toLocaleTimeString('en-GB', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit'
+              });
+            }
+          }
+
+          function initFooter() {
+            if (interval) clearInterval(interval);
+            updateFooterTime();
+            interval = setInterval(updateFooterTime, 60000);
+          }
+
+          initFooter();
+          document.addEventListener('astro:page-load', initFooter);
+          document.addEventListener('astro:before-swap', () => {
+            if (interval) clearInterval(interval);
+          }, { once: true });
+        })();
+      </script>
     </div>
   </div>
 </footer>

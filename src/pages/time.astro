@@ -1,40 +1,133 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const myTimezone = 'Asia/Dhaka';
+const myTimezone = "Asia/Dhaka";
 const now = new Date();
-const initialTime = now.toLocaleTimeString('en-GB', {
+const initialTime = now.toLocaleTimeString("en-GB", {
   timeZone: myTimezone,
   hour12: false,
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit'
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
 });
 ---
 
 <BaseLayout
-  title="time / suaib"
-  description="checking if we are in the same timeline."
+  title="time"
+  description="what time is it where suaib is."
   canonical="https://suaib.is-a.dev/time"
   hideHeader={true}
+  noIndex={true}
 >
   <div class="time-lock-wrapper">
     <section class="time-section">
       <div class="time-main">
         <span class="clock-icon"></span>
-        <span class="current-time" id="current-time">{initialTime}</span>
+        <span
+          class="current-time"
+          id="current-time"
+          aria-label="current time in dhaka"
+          aria-live="polite">{initialTime}</span
+        >
         <span class="my-offset">utc+6</span>
       </div>
 
       <div class="time-description">
         <p>
-          <span id="time-sentence">detecting your timeline...</span>
+          <span id="time-sentence"></span>
           <br />
-          <span class="location-note">the above time is the current time in dhaka, bangladesh, where i live.</span>
+          <span class="location-note"
+            >this is the current time in dhaka, where i'm based.</span
+          >
         </p>
       </div>
 
-      <a href="/" class="back-link">← go back</a>
+      <script is:inline>
+        (function () {
+          function initTime() {
+            const currentTimeEl = document.getElementById("current-time");
+            const timeSentenceEl = document.getElementById("time-sentence");
+            if (!currentTimeEl || !timeSentenceEl) return;
+
+            const myTimezone = "Asia/Dhaka";
+            const myOffsetMinutes = 6 * 60;
+
+            function update() {
+              const now = new Date();
+              const myTime = new Date(
+                now.toLocaleString("en-US", { timeZone: myTimezone }),
+              );
+
+              // Clock
+              currentTimeEl.textContent = myTime.toLocaleTimeString("en-GB", {
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              });
+
+              // Greeting
+              const visitorHours = now.getHours();
+              let greeting = "good evening";
+              if (visitorHours >= 0 && visitorHours < 5) greeting = "hello";
+              else if (visitorHours >= 5 && visitorHours < 12)
+                greeting = "good morning";
+              else if (visitorHours >= 12 && visitorHours < 18)
+                greeting = "good afternoon";
+
+              // Timezone
+              const visitorOffsetMinutes = -now.getTimezoneOffset();
+              const diffMinutes = myOffsetMinutes - visitorOffsetMinutes;
+
+              const formatTz = (offset) => {
+                const abs = Math.abs(offset);
+                const h = Math.floor(abs / 60);
+                const m = abs % 60;
+                const sign = offset >= 0 ? "+" : "-";
+                return `utc${sign}${h}${m > 0 ? ":" + m : ""}`;
+              };
+
+              let diffString = "";
+              if (diffMinutes === 0) {
+                diffString = "the same as mine";
+              } else {
+                const absDiff = Math.abs(diffMinutes);
+                const h = Math.floor(absDiff / 60);
+                const m = absDiff % 60;
+                const rel = diffMinutes > 0 ? "behind" : "ahead";
+
+                let timeParts = [];
+                if (h > 0) timeParts.push(`${h} ${h === 1 ? "hour" : "hours"}`);
+                if (m > 0)
+                  timeParts.push(`${m} ${m === 1 ? "minute" : "minutes"}`);
+
+                diffString = `${timeParts.join(" and ")} ${rel} of mine`;
+              }
+
+              const visitorTzString = formatTz(visitorOffsetMinutes);
+              const separator = greeting.endsWith("?") ? " " : ". ";
+              timeSentenceEl.innerHTML = `${greeting}${separator}your timezone is <span style="color: var(--primary-color); font-weight: 500;">${visitorTzString}</span>, ${diffString}.`;
+            }
+
+            update();
+            const interval = setInterval(update, 1000);
+
+            // Cleanup interval on next page load to prevent memory leaks
+            document.addEventListener(
+              "astro:before-swap",
+              () => clearInterval(interval),
+              { once: true },
+            );
+          }
+
+          // Run on initial load
+          initTime();
+          // Re-run on every view transition
+          document.addEventListener("astro:page-load", initTime);
+        })();
+      </script>
+
+      <a href="/" class="back-link">← back home</a>
     </section>
   </div>
 
@@ -119,12 +212,6 @@ const initialTime = now.toLocaleTimeString('en-GB', {
       opacity: 0.9;
     }
 
-    .time-description {
-      margin-top: 1rem;
-      width: 100%;
-      max-width: 1000px;
-    }
-
     .time-description p {
       font-size: clamp(1rem, 3vw, 1.4rem);
       line-height: 1.4;
@@ -135,27 +222,6 @@ const initialTime = now.toLocaleTimeString('en-GB', {
 
     .location-note {
       opacity: 0.9;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      font-family: "JetBrains Mono", monospace;
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-      margin-top: 3.5rem;
-      padding: 0.5rem 1rem;
-      border: 1px dashed var(--border-color);
-      border-radius: 8px;
-    }
-
-    .back-link:hover {
-      color: var(--primary-color);
-      border-color: var(--primary-color);
-      background: rgba(var(--primary-rgb), 0.05);
-      transform: translateY(-2px);
     }
 
     @media (max-width: 600px) {

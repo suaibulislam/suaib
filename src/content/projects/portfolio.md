@@ -9,5 +9,5 @@ github: "https://github.com/suaibulislam/suaib"
 ---
 
 ### **overview**
-this site is just a place to put my things. built with astro.
-fast and small.
+the site you're on right now. built with astro and vanilla css.
+i wanted something that felt like a notebook. so i made one.

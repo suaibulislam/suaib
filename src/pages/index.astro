@@ -5,40 +5,24 @@ import TechStack from "../components/TechStack.astro";
 ---
 
 <BaseLayout
-  title="home / suaib"
-  description="suaib's personal sketchbook on the web."
+  title="suaib"
+  description="suaib's personal site. small things for the internet."
   canonical="https://suaib.is-a.dev/"
 >
   <section class="about-section">
     <h1 class="section-heading">hello</h1>
     <div class="about-content">
       <p>
-        i'm suaib. i watch anime, play clash of clans, and make small things for
-        the internet. i don't really have a specialty. i just try stuff until it
-        works.
+        i'm suaib. i make small things for the internet.<br />
+        i pick things up, get obsessed, then move on, that's basically it.<br />
+        i watch a lot of anime, sports genre mostly. blue box is a recent favourite.<br
+        />
+        i also play clash of clans. town hall 18, if that means anything to you.<br
+        />
+        oh btw, i'm supposed to be studying right now.
       </p>
 
       <TechStack />
-
-      <div class="philosophy">
-        <h3 class="portal-heading">how i do things</h3>
-        <div class="nav-grid portal-grid">
-          <div class="nav-card stat-card">
-            <div class="nav-icon">!</div>
-            <div class="nav-text">
-              <div class="nav-title">vibe check</div>
-              <div class="nav-desc">i work when i feel like it.</div>
-            </div>
-          </div>
-          <div class="nav-card stat-card">
-            <div class="nav-icon">&</div>
-            <div class="nav-text">
-              <div class="nav-title">the process</div>
-              <div class="nav-desc">pure trial and error.</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -55,43 +39,5 @@ import TechStack from "../components/TechStack.astro";
     margin-bottom: 1.5rem;
     max-width: 100%;
     text-align: left;
-  }
-
-  .time-signoff {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-style: italic;
-    opacity: 0.8;
-    text-align: center;
-  }
-
-  .philosophy {
-    margin: 2rem 0;
-  }
-
-  .portal-heading {
-    font-family: "Outfit", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 2rem;
-    letter-spacing: -0.01em;
-    text-align: center;
-  }
-
-  .portal-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-  }
-
-  .stat-card {
-    background: rgba(var(--primary-rgb), 0.03);
-    pointer-events: none;
-  }
-
-  .timezone-section {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
   }
 </style>
