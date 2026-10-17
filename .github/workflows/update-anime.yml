@@ -23,18 +23,21 @@ jobs:
             try {
               const res = await fetch("https://api.jikan.moe/v4/users/blankeed/animelist?status=watching");
               const data = await res.json();
-              if (data?.data?.length > 0) {
-                const list = data.data.map(item => ({
-                  title: (item.entry?.title || item.title || "one piece").toLowerCase(),
-                  url: item.entry?.url || "https://myanimelist.net/animelist/blankeed"
-                }));
+              if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+                const list = data.data.map(item => {
+                  const entry = item.entry || item.anime || item.node || item;
+                  return {
+                    title: (entry.title || "one piece").toLowerCase(),
+                    url: entry.url || `https://myanimelist.net/anime/${entry.mal_id || entry.id || ""}`
+                  };
+                });
                 fs.writeFileSync("src/data/anime.json", JSON.stringify(list, null, 2));
-                console.log("Successfully updated anime.json:", list);
+                console.log("Successfully wrote anime.json:", list);
               } else {
-                console.log("No watching anime found in API response.");
+                console.log("No active watching entries found.");
               }
             } catch (err) {
-              console.error("Failed to update anime JSON:", err);
+              console.error("Fetch failed:", err);
             }
           }
           update();
