@@ -1,0 +1,47 @@
+name: Update Anime List
+
+on:
+  schedule:
+    # Runs every 12 hours
+    - cron: '0 */12 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  update-list:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Fetch Current Anime List
+        run: |
+          node -e '
+          const fs = require("fs");
+          async function update() {
+            try {
+              const res = await fetch("https://api.jikan.moe/v4/users/blankeed/animelist?status=watching");
+              const data = await res.json();
+              if (data?.data?.length > 0) {
+                const list = data.data.map(item => ({
+                  title: item.node.title.toLowerCase(),
+                  url: "https://myanimelist.net/anime/" + item.node.id
+                }));
+                fs.writeFileSync("src/data/anime.json", JSON.stringify(list, null, 2));
+              }
+            } catch (err) {
+              console.error("Failed to update anime JSON:", err);
+            }
+          }
+          update();
+          '
+
+      - name: Commit & Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/anime.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update watching anime list" && git push)
+          
