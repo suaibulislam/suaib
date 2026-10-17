@@ -40,7 +40,7 @@ import Footer from "../components/Footer.astro";
       const data = await res.json();
       
       if (data?.data?.length > 0) {
-        const titles = data.data.map(item => item.node.title);
+        const titles = data.data.map((item: any) => item.node.title);
         if (outputEl) {
           outputEl.textContent = titles.join(', ').toLowerCase();
         }
