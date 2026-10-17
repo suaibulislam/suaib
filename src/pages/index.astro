@@ -1,29 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
-
-interface AnimeItem {
-  title: string;
-  url: string;
-}
-
-let animeItems: AnimeItem[] = [
-  { title: "one piece", url: "https://myanimelist.net/anime/21/One_Piece" }
-];
-
-try {
-  const res = await fetch('https://api.jikan.moe/v4/users/blankeed/animelist?status=watching');
-  const data = await res.json();
-  
-  if (data?.data?.length > 0) {
-    animeItems = data.data.map((item: any) => ({
-      title: item.node.title.toLowerCase(),
-      url: item.node.url || `https://myanimelist.net/anime/${item.node.id}`
-    }));
-  }
-} catch (err) {
-  console.error("failed to fetch anime list at build time:", err);
-}
+import animeItems from "../data/anime.json";
 ---
 
 <BaseLayout
