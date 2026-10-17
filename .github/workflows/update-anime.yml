@@ -2,9 +2,8 @@ name: Update Anime List
 
 on:
   schedule:
-    # Runs every 12 hours
     - cron: '0 */12 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   update-list:
@@ -26,10 +25,13 @@ jobs:
               const data = await res.json();
               if (data?.data?.length > 0) {
                 const list = data.data.map(item => ({
-                  title: item.node.title.toLowerCase(),
-                  url: "https://myanimelist.net/anime/" + item.node.id
+                  title: (item.entry?.title || item.title || "one piece").toLowerCase(),
+                  url: item.entry?.url || "https://myanimelist.net/animelist/blankeed"
                 }));
                 fs.writeFileSync("src/data/anime.json", JSON.stringify(list, null, 2));
+                console.log("Successfully updated anime.json:", list);
+              } else {
+                console.log("No watching anime found in API response.");
               }
             } catch (err) {
               console.error("Failed to update anime JSON:", err);
@@ -44,4 +46,3 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/anime.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update watching anime list" && git push)
-          
