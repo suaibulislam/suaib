@@ -5,35 +5,56 @@ import Footer from "../components/Footer.astro";
 
 <BaseLayout
   title="suaib"
-  description="suaib's personal site. small things for the internet."
+  description="suaib's personal site. small web projects."
   canonical="https://suaib.is-a.dev/"
 >
   <section class="about-section">
     <h1 class="section-heading">hello</h1>
     <div class="about-content">
       <p>
-        i'm suaib. i make <a href="/projects" class="subtle-link"
-          >small things</a
-        > for the internet. i pick stuff up, get way too into it, build something,
-        and then forget about it. that's basically the whole process. i also watch
-        a lot of anime. sports genre mostly. <a
-          href="https://myanimelist.net/anime/57181/Ao_no_Hako"
+        hi, i'm suaib. i build <a href="/projects" class="subtle-link"
+          >small web projects</a
+        > whenever an idea catches my interest. outside of that, i usually watch
+        anime, currently <a
+          id="anime-link"
+          href="https://myanimelist.net/animelist/blankeed"
           class="subtle-link"
           target="_blank"
-          rel="noopener">blue box</a
-        > and <a
-          href="https://myanimelist.net/anime/49052/Ao_Ashi"
-          class="subtle-link"
-          target="_blank"
-          rel="noopener">ao ashi</a
-        > are recent favourites. oh and i play clash of clans, town hall 18 if
-        that means anything to you.
+          rel="noopener"><span id="anime-output">one piece</span></a
+        >, or occasionally check in on clash of clans.
       </p>
     </div>
   </section>
 
   <Footer />
 </BaseLayout>
+
+<script>
+  async function fetchAnime() {
+    const username = "blankeed";
+    const linkEl = document.getElementById('anime-link') as HTMLAnchorElement;
+    const outputEl = document.getElementById('anime-output');
+
+    try {
+      const res = await fetch(`https://api.jikan.moe/v4/users/${username}/animelist?status=watching`);
+      const data = await res.json();
+      
+      if (data?.data?.length > 0) {
+        const titles = data.data.map(item => item.node.title);
+        if (outputEl) {
+          outputEl.textContent = titles.join(', ').toLowerCase();
+        }
+        if (linkEl) {
+          linkEl.href = `https://myanimelist.net/animelist/${username}?status=1`;
+        }
+      }
+    } catch (err) {
+      console.error("failed to load anime list:", err);
+    }
+  }
+
+  fetchAnime();
+</script>
 
 <style>
   .about-section {
