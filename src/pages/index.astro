@@ -1,6 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
+
+interface AnimeItem {
+  title: string;
+  url: string;
+}
+
+let animeItems: AnimeItem[] = [
+  { title: "one piece", url: "https://myanimelist.net/anime/21/One_Piece" }
+];
+
+try {
+  const res = await fetch('https://api.jikan.moe/v4/users/blankeed/animelist?status=watching');
+  const data = await res.json();
+  
+  if (data?.data?.length > 0) {
+    animeItems = data.data.map((item: any) => ({
+      title: item.node.title.toLowerCase(),
+      url: item.node.url || `https://myanimelist.net/anime/${item.node.id}`
+    }));
+  }
+} catch (err) {
+  console.error("failed to fetch anime list at build time:", err);
+}
 ---
 
 <BaseLayout
@@ -15,46 +38,19 @@ import Footer from "../components/Footer.astro";
         i'm suaib. i build <a href="/projects" class="subtle-link"
           >small web projects</a
         > whenever an idea catches my interest. outside of that, i usually watch
-        anime, currently <a
-          id="anime-link"
-          href="https://myanimelist.net/animelist/blankeed"
-          class="subtle-link"
-          target="_blank"
-          rel="noopener"><span id="anime-output">one piece</span></a
-        >, or occasionally check in on clash of clans.
+        anime, currently 
+        {animeItems.map((anime, index) => (
+          <>
+            <a href={anime.url} class="subtle-link" target="_blank" rel="noopener">{anime.title}</a>
+            {index < animeItems.length - 1 ? (index === animeItems.length - 2 ? ' and ' : ', ') : ''}
+          </>
+        ))}, or occasionally check in on clash of clans.
       </p>
     </div>
   </section>
 
   <Footer />
 </BaseLayout>
-
-<script>
-  async function fetchAnime() {
-    const username = "blankeed";
-    const linkEl = document.getElementById('anime-link') as HTMLAnchorElement;
-    const outputEl = document.getElementById('anime-output');
-
-    try {
-      const res = await fetch(`https://api.jikan.moe/v4/users/${username}/animelist?status=watching`);
-      const data = await res.json();
-      
-      if (data?.data?.length > 0) {
-        const titles = data.data.map((item: any) => item.anime.title);
-        if (outputEl) {
-          outputEl.textContent = titles.join(', ').toLowerCase();
-        }
-        if (linkEl) {
-          linkEl.href = `https://myanimelist.net/animelist/${username}?status=1`;
-        }
-      }
-    } catch (err) {
-      console.error("failed to load anime list:", err);
-    }
-  }
-
-  fetchAnime();
-</script>
 
 <style>
   .about-section {
