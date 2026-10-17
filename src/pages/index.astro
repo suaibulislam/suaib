@@ -12,7 +12,7 @@ import Footer from "../components/Footer.astro";
     <h1 class="section-heading">hello</h1>
     <div class="about-content">
       <p>
-        hi, i'm suaib. i build <a href="/projects" class="subtle-link"
+        i'm suaib. i build <a href="/projects" class="subtle-link"
           >small web projects</a
         > whenever an idea catches my interest. outside of that, i usually watch
         anime, currently <a
@@ -40,7 +40,7 @@ import Footer from "../components/Footer.astro";
       const data = await res.json();
       
       if (data?.data?.length > 0) {
-        const titles = data.data.map((item: any) => item.node.title);
+        const titles = data.data.map((item: any) => item.anime.title);
         if (outputEl) {
           outputEl.textContent = titles.join(', ').toLowerCase();
         }
