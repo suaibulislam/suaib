@@ -34,8 +34,7 @@ const initialTime = now.toLocaleTimeString("en-GB", {
 
       <div class="time-description">
         <p>
-          <span id="time-sentence"></span>
-          <br />
+          <span id="time-sentence"></span><br class="desktop-break" />
           <span class="location-note"
             >this is the current time in dhaka, where i'm based.</span
           >
@@ -162,75 +161,4 @@ const initialTime = now.toLocaleTimeString("en-GB", {
       width: 100%;
       max-width: 1200px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .time-main {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: clamp(0.5rem, 3vw, 2rem);
-      margin-bottom: 0.75rem;
-    }
-
-    .clock-icon {
-      font-size: clamp(1.5rem, 5vw, 3rem);
-      opacity: 0.8;
-      align-self: center;
-    }
-
-    .current-time {
-      font-family: "Lexend", sans-serif;
-      font-weight: 900;
-      font-size: clamp(2.5rem, 12vw, 6rem);
-      line-height: 1;
-      letter-spacing: -0.05em;
-      color: var(--text-primary);
-      text-shadow: 0 0 30px rgba(var(--primary-rgb), 0.08);
-    }
-
-    .my-offset {
-      font-family: "Lexend", sans-serif;
-      font-weight: 900;
-      font-size: clamp(1.2rem, 6vw, 3rem);
-      color: var(--primary-color);
-      letter-spacing: -0.04em;
-      opacity: 0.9;
-    }
-
-    .time-description p {
-      font-size: clamp(1rem, 3vw, 1.4rem);
-      line-height: 1.4;
-      font-weight: 400;
-      opacity: 0.9;
-      letter-spacing: -0.01em;
-    }
-
-    .location-note {
-      opacity: 0.9;
-    }
-
-    @media (max-width: 600px) {
-      .time-main {
-        gap: 0.5rem;
-      }
-      .time-lock-wrapper {
-        padding: 1rem;
-      }
-    }
-  </style>
-</BaseLayout>
+      flex-direction:
