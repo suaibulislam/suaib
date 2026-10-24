@@ -1,12 +1,13 @@
 ---
 title: "emolink"
-description: "a discord bot that gets cdn links for emojis and stickers. built it for myself. other people use it too apparently."
+description: "a discord bot that gets direct links for emojis and stickers."
 tech: ["python", "discord.py", "slash-commands"]
 status: "completed"
-slug: "emolink"
+date: 2026-03-15
+featured: true
 github: "https://github.com/suaibulislam/emolink"
 ---
 
-### **overview**
-a discord bot for poor ppl like u and me who want custom emojis and stickers without paying for nitro.
-it snatches direct cdn links so u can yoink assets for free.
+### overview
+
+**emolink** is a simple discord bot that fetches direct cdn links for custom emojis and stickers. since non-nitro users can't send server emojis normally, this is basically a cheap workaround for broke folks (like me) to post them as raw image or gif links instead.

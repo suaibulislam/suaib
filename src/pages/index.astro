@@ -1,44 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
-import TechStack from "../components/TechStack.astro";
+import animeItems from "../data/anime.json";
 ---
 
 <BaseLayout
-  title="home / suaib"
-  description="suaib's personal sketchbook on the web."
+  title="suaib"
+  description="suaib's personal site. small web projects."
   canonical="https://suaib.is-a.dev/"
 >
   <section class="about-section">
     <h1 class="section-heading">hello</h1>
     <div class="about-content">
       <p>
-        i'm suaib. i watch anime, play clash of clans, and make small things for
-        the internet. i don't really have a specialty. i just try stuff until it
-        works.
+        i'm suaib. i build <a href="/projects" class="subtle-link">small web projects</a> whenever an idea catches my interest. when i'm not coding, i usually watch anime, currently {
+          animeItems.map((anime, index) => {
+            const separator = index < animeItems.length - 1 
+              ? (index === animeItems.length - 2 ? ' and ' : ', ') 
+              : '';
+            return (
+              <>
+                <a href={anime.url} class="subtle-link" target="_blank" rel="noopener">{anime.title}</a>{separator}
+              </>
+            );
+          })
+        }, or occasionally play clash of clans.
       </p>
-
-      <TechStack />
-
-      <div class="philosophy">
-        <h3 class="portal-heading">how i do things</h3>
-        <div class="nav-grid portal-grid">
-          <div class="nav-card stat-card">
-            <div class="nav-icon">!</div>
-            <div class="nav-text">
-              <div class="nav-title">vibe check</div>
-              <div class="nav-desc">i work when i feel like it.</div>
-            </div>
-          </div>
-          <div class="nav-card stat-card">
-            <div class="nav-icon">&</div>
-            <div class="nav-text">
-              <div class="nav-title">the process</div>
-              <div class="nav-desc">pure trial and error.</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -57,41 +44,13 @@ import TechStack from "../components/TechStack.astro";
     text-align: left;
   }
 
-  .time-signoff {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-style: italic;
-    opacity: 0.8;
-    text-align: center;
+  .subtle-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
-  .philosophy {
-    margin: 2rem 0;
-  }
-
-  .portal-heading {
-    font-family: "Outfit", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 700;
+  .subtle-link:hover {
     color: var(--primary-color);
-    margin-bottom: 2rem;
-    letter-spacing: -0.01em;
-    text-align: center;
-  }
-
-  .portal-grid {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-  }
-
-  .stat-card {
-    background: rgba(var(--primary-rgb), 0.03);
-    pointer-events: none;
-  }
-
-  .timezone-section {
-    margin-top: 4rem;
-    margin-bottom: 4rem;
   }
 </style>

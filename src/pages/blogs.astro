@@ -3,23 +3,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-);
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
 const hasPosts = posts.length > 0;
 ---
 
 <BaseLayout
-  title="rants / suaib"
-  description="a collection of my thoughts and rants."
+  title="blogs"
+  description="notes and rants. updated occasionally."
   canonical="https://suaib.is-a.dev/blogs"
 >
   <section class="blogs-section">
     <div class="rants-header">
-      <h1 class="section-heading">rants</h1>
-      <p class="rants-subtitle">
-        sometimes i write things down. when i do, they show up here.
-      </p>
+      <h1 class="section-heading">blogs</h1>
     </div>
 
     {
@@ -29,7 +26,7 @@ const hasPosts = posts.length > 0;
             <input
               type="text"
               id="blog-search"
-              placeholder="search rants..."
+              placeholder="search blogs..."
               aria-label="Search blog posts"
             />
           </div>
@@ -58,13 +55,12 @@ const hasPosts = posts.length > 0;
             class="empty-state"
             style="display: none; margin-top: 2rem;"
           >
-            <p>nothing matches that. maybe i haven't ranted about it yet.</p>
+            <p>nothing matches that. maybe i haven't written about it yet.</p>
           </div>
         </div>
       ) : (
         <div class="empty-state">
-          <p>nothing here yet.</p>
-          <p class="subtle">check back later. or don't.</p>
+          <p><i>crickets chirp</i></p>
         </div>
       )
     }
@@ -74,50 +70,45 @@ const hasPosts = posts.length > 0;
 </BaseLayout>
 
 <script>
-  const searchInput = document.getElementById("blog-search");
-  const blogList = document.getElementById("blog-list");
-  const blogEntries = document.querySelectorAll(".blog-entry:not(.drafting)");
-  const noResults = document.getElementById("no-results");
+  function setupSearch() {
+    const searchInput = document.getElementById("blog-search");
+    const blogEntries = document.querySelectorAll(".blog-entry:not(.drafting)");
+    const noResults = document.getElementById("no-results");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = (e.target as HTMLInputElement).value.toLowerCase();
-      let visibleCount = 0;
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => {
+        const query = (e.target as HTMLInputElement).value.toLowerCase();
+        let visibleCount = 0;
 
-      blogEntries.forEach((entry) => {
-        const title = entry.getAttribute("data-title") || "";
-        if (title.includes(query)) {
-          (entry as HTMLElement).style.display = "flex";
-          visibleCount++;
-        } else {
-          (entry as HTMLElement).style.display = "none";
+        blogEntries.forEach((entry) => {
+          const title = entry.getAttribute("data-title") || "";
+          if (title.includes(query)) {
+            (entry as HTMLElement).style.display = "flex";
+            visibleCount++;
+          } else {
+            (entry as HTMLElement).style.display = "none";
+          }
+        });
+
+        if (noResults) {
+          noResults.style.display = visibleCount === 0 ? "block" : "none";
         }
       });
-
-      if (noResults) {
-        noResults.style.display = visibleCount === 0 ? "block" : "none";
-      }
-    });
+    }
   }
+
+  document.addEventListener("astro:page-load", setupSearch);
 </script>
 
 <style>
   .blogs-section {
-    margin-bottom: 6rem;
-    position: relative;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    width: 100%;
   }
 
   .rants-header {
-    margin-bottom: 3.5rem;
-    position: relative;
-  }
-
-  .rants-subtitle {
-    font-family: "Lexend", sans-serif;
-    font-size: 1.05rem;
-    color: var(--text-secondary);
-    margin-top: -1.5rem;
-    opacity: 0.8;
+    margin-bottom: 1.5rem;
   }
 
   .blog-container {
@@ -125,22 +116,7 @@ const hasPosts = posts.length > 0;
   }
 
   .search-wrapper {
-    margin-bottom: 3.5rem;
-    position: relative;
-  }
-
-  .search-doodle {
-    position: absolute;
-    right: -140px;
-    top: 10px;
-    font-family: "Lexend", sans-serif;
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    font-style: italic;
-    opacity: 0.6;
-    white-space: nowrap;
-    pointer-events: none;
-    transform: rotate(3deg);
+    margin-bottom: 2rem;
   }
 
   #blog-search {
