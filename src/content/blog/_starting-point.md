@@ -2,7 +2,6 @@
 title: "the starting point"
 description: "why this site exists and what to expect."
 date: 2026-05-02
-featured: false
 ---
 
 i built this site because i wanted a space that felt like a notebook. it's a place for my thoughts and notes. 
