@@ -4,7 +4,7 @@ import Footer from "../../components/Footer.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
   const sortedPosts = posts.sort(
     (a, b) => b.data.date.getTime() - a.data.date.getTime(),
   );
@@ -97,9 +97,10 @@ const { Content } = await post.render();
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            ><line x1="19" y1="12" x2="5" y2="12"></line><polyline
-              points="12 19 5 12 12 5"></polyline></svg
           >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
           back to blogs
         </a>
       </div>
@@ -225,13 +226,11 @@ const { Content } = await post.render();
     text-align: center;
   }
 
-
-
   @media (max-width: 600px) {
     .post-navigation {
       grid-template-columns: 1fr;
     }
-    
+
     .post-title {
       font-size: 2rem;
     }
