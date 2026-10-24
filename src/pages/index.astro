@@ -13,17 +13,7 @@ import animeItems from "../data/anime.json";
     <h1 class="section-heading">hello</h1>
     <div class="about-content">
       <p>
-        i'm suaib. i build <a href="/projects" class="subtle-link"
-          >small web projects</a
-        > whenever an idea catches my interest. outside of that, i usually watch
-        anime, currently {
-          animeItems.map((anime, index) => (
-            <>
-              <a href={anime.url} class="subtle-link" target="_blank" rel="noopener">{anime.title}</a>
-              {index < animeItems.length - 1 ? (index === animeItems.length - 2 ? ' and ' : ', ') : ''}
-            </>
-          ))
-        }, or occasionally check in on clash of clans.
+        i'm suaib. i build <a href="/projects" class="subtle-link">small web projects</a> whenever an idea catches my interest. when i'm not coding, i usually watch anime, currently {animeItems.map((anime, index) => (<a href={anime.url} class="subtle-link" target="_blank" rel="noopener">{anime.title}</a>{index < animeItems.length - 1 ? (index === animeItems.length - 2 ? ' and ' : ', ') : ''}))}, or occasionally play clash of clans.
       </p>
     </div>
   </section>
