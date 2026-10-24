@@ -226,12 +226,12 @@ const initialTime = now.toLocaleTimeString("en-GB", {
       opacity: 0.9;
     }
 
-    /* Hide the line break on mobile screens, keep it on desktop */
+    /* Hidden on mobile, active only on wide screens (1024px+) */
     .desktop-only-break {
       display: none;
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: 1024px) {
       .desktop-only-break {
         display: inline;
       }
