@@ -8,6 +8,6 @@ featured: true
 github: "https://github.com/suaibulislam/suaib"
 ---
 
-### **overview**
-the site you're on right now. built with astro and vanilla css.
-i wanted something that felt like a notebook. so i made one.
+### overview
+
+​the site you're looking at right now. built with astro and vanilla css. aimed for something simple that feels like a personal notebook, so here it is.
