@@ -1,6 +1,5 @@
 ---
 import Header from "../components/Header.astro";
-import { ClientRouter } from "astro:transitions";
 import Analytics from '@vercel/analytics/astro';
 
 export interface Props {
@@ -82,7 +81,6 @@ const {
         document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
-    <ClientRouter />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
