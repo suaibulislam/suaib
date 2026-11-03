@@ -72,13 +72,18 @@ const {
       }
     </style>
 
+    <meta name="theme-color" content="#fcfaf2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1c1e" media="(prefers-color-scheme: dark)" />
+
     <script is:inline>
       (function () {
-        const getSystemTheme = () => {
-          return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        const colorScheme = window.matchMedia('(prefers-color-scheme: light)');
+        const applyTheme = () => {
+          const theme = colorScheme.matches ? 'light' : 'dark';
+          document.documentElement.setAttribute("data-theme", theme);
         };
-        const theme = getSystemTheme();
-        document.documentElement.setAttribute("data-theme", theme);
+        applyTheme();
+        colorScheme.addEventListener('change', applyTheme);
       })();
     </script>
 
@@ -88,7 +93,6 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta name="theme-color" content="#ff8c42" />
 
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonical} />
