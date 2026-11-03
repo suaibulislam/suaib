@@ -312,3 +312,178 @@ html {
         scroll-behavior: auto !important;
     }
 }
+
+
+/* --- Visual polish: keep the notebook identity, refine the rhythm --- */
+:root {
+    --content-measure: 46rem;
+    --motion-standard: 180ms ease;
+}
+
+.main-content {
+    padding-top: clamp(3rem, 7vw, 5rem);
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.section-heading {
+    font-size: clamp(1.55rem, 3vw, 1.85rem);
+    letter-spacing: -0.035em;
+    margin-bottom: clamp(2rem, 4vw, 2.6rem);
+}
+
+.section-heading::before {
+    font-size: 0.9em;
+    margin-right: 0.7rem;
+}
+
+.section-heading::after {
+    width: 2.8rem;
+    height: 3px;
+    bottom: -0.65rem;
+}
+
+.about-content p {
+    max-width: 42rem;
+    font-size: 1.04rem;
+    line-height: 1.85;
+    letter-spacing: -0.012em;
+}
+
+.subtle-link {
+    text-decoration: underline;
+    text-decoration-color: rgba(var(--primary-rgb), 0.42);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+}
+
+.subtle-link:hover {
+    text-decoration-color: var(--primary-color);
+}
+
+.nav-link {
+    transition:
+        color var(--motion-standard),
+        background-color var(--motion-standard),
+        border-color var(--motion-standard),
+        transform var(--motion-standard);
+}
+
+.nav-link.active {
+    border-color: rgba(var(--primary-rgb), 0.28);
+}
+
+.nav-link:hover {
+    transform: translateY(-1px);
+}
+
+.project-card,
+.blog-entry,
+.social-card {
+    border-width: 2px;
+    background: rgba(var(--primary-rgb), 0.012);
+}
+
+.project-card {
+    padding: 1.25rem 1.4rem;
+    gap: 1.25rem;
+}
+
+.project-title {
+    font-size: 1.18rem;
+    letter-spacing: -0.025em;
+}
+
+.project-description {
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.tech-tag,
+.status-badge,
+.action-link {
+    border-width: 2px;
+    padding: 0.2rem 0.55rem;
+}
+
+.social-card {
+    gap: 1.1rem;
+    padding: 1.25rem 1.4rem;
+}
+
+.social-icon {
+    background: rgba(var(--primary-rgb), 0.045);
+}
+
+.blog-entry {
+    padding: 1.4rem 1.6rem;
+    border-radius: 18px 7px 18px 7px;
+}
+
+.blog-title {
+    font-size: 1.18rem;
+    letter-spacing: -0.02em;
+}
+
+#blog-search {
+    border-width: 2px;
+}
+
+.back-link {
+    border-width: 2px;
+}
+
+.footer {
+    margin-top: 1.5rem;
+    padding: 1.25rem 0;
+}
+
+.card-hover {
+    transition:
+        transform var(--motion-standard),
+        border-color var(--motion-standard),
+        background-color var(--motion-standard),
+        box-shadow var(--motion-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card-hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 2.75rem 1.15rem 2.5rem;
+    }
+
+    .section-heading {
+        margin-bottom: 2.1rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding-inline: 1rem;
+    }
+
+    .nav-link {
+        min-height: 2.35rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-card {
+        padding: 1.1rem;
+    }
+
+    .blog-entry {
+        padding: 1.2rem 1.25rem;
+    }
+}
