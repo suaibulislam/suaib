@@ -72,9 +72,11 @@ const {
         text-decoration: none;
       }
 
-      /* Keep Astro's client-side navigation but remove the snapshot fade. */
-      ::view-transition-old(root),
-      ::view-transition-new(root) {
+      /* Preserve ClientRouter navigation without animating page snapshots. */
+      ::view-transition-group(*),
+      ::view-transition-image-pair(*),
+      ::view-transition-old(*),
+      ::view-transition-new(*) {
         animation: none !important;
       }
     </style>
