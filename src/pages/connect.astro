@@ -197,11 +197,21 @@ import Footer from "../components/Footer.astro";
     align-items: center;
     justify-content: center;
     width: 48px;
+    min-width: 48px;
     height: 48px;
+    flex: 0 0 48px;
     background: transparent;
     border: 3px dotted var(--border-color);
     border-radius: 50%;
     color: var(--primary-color);
+  }
+
+  .social-icon :global(svg) {
+    display: block;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    flex: 0 0 24px;
   }
 
   .social-text {
