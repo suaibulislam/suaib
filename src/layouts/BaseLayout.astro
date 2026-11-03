@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 import Analytics from '@vercel/analytics/astro';
 
 export interface Props {
@@ -24,6 +25,7 @@ const {
 <!doctype html>
 <html lang="en" transition:animate="none">
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="_xKmImyX8iD4OaXfjFikMU-8Al6xvoFHu66DMYjmVgU" />
@@ -71,6 +73,45 @@ const {
         text-decoration: none;
       }
     </style>
+
+    <script is:inline>
+      // Keep the current page visible until same-origin stylesheets for the
+      // destination document are ready. This prevents a flash of unstyled content
+      // during client-side navigation, without changing the site's appearance.
+      document.addEventListener("astro:before-swap", async (event) => {
+        const destination = event.newDocument;
+        if (!destination) return;
+
+        const stylesheets = Array.from(
+          destination.querySelectorAll('link[rel="stylesheet"][href]')
+        ).filter((link) => {
+          try {
+            return new URL(link.href, location.href).origin === location.origin;
+          } catch {
+            return false;
+          }
+        });
+
+        await Promise.all(stylesheets.map((stylesheet) => {
+          const href = new URL(stylesheet.href, location.href).href;
+          if (Array.from(document.querySelectorAll('link[rel="stylesheet"][href]'))
+            .some((current) => new URL(current.href, location.href).href === href && current.sheet)) {
+            return Promise.resolve();
+          }
+
+          return new Promise((resolve) => {
+            const preload = document.createElement("link");
+            preload.rel = "preload";
+            preload.as = "style";
+            preload.href = href;
+            preload.onload = resolve;
+            preload.onerror = resolve;
+            document.head.appendChild(preload);
+            window.setTimeout(resolve, 8000);
+          });
+        }));
+      });
+    </script>
 
     <script is:inline>
       (function () {
