@@ -23,7 +23,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,14 +70,6 @@ const {
       a:visited {
         color: inherit;
         text-decoration: none;
-      }
-
-      /* Preserve ClientRouter navigation without animating page snapshots. */
-      ::view-transition-group(*),
-      ::view-transition-image-pair(*),
-      ::view-transition-old(*),
-      ::view-transition-new(*) {
-        animation: none !important;
       }
     </style>
 
