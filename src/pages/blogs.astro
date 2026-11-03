@@ -35,7 +35,7 @@ const hasPosts = posts.length > 0;
             {posts.map((post) => (
               <a
                 href={`/blogs/${post.slug}`}
-                class="blog-entry"
+                class="blog-entry card-hover"
                 data-title={post.data.title.toLowerCase()}
               >
                 <span class="blog-title">{post.data.title}</span>
