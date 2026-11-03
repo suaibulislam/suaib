@@ -1,6 +1,6 @@
 ---
 import Header from "../components/Header.astro";
-// import { ClientRouter } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Analytics from '@vercel/analytics/astro';
 
 export interface Props {
@@ -71,6 +71,12 @@ const {
         color: inherit;
         text-decoration: none;
       }
+
+      /* Keep Astro's client-side navigation but remove the snapshot fade. */
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation: none !important;
+      }
     </style>
 
     <script is:inline>
@@ -82,7 +88,7 @@ const {
         document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
-    <!-- <ClientRouter /> -->
+    <ClientRouter />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
