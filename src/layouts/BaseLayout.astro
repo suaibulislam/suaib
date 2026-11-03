@@ -72,7 +72,8 @@ const {
       }
     </style>
 
-    <meta name="theme-color" content="#fcfaf2" id="theme-color-meta" />
+    <meta name="theme-color" content="#fcfaf2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1a1c1e" media="(prefers-color-scheme: dark)" />
 
     <script is:inline>
       (function () {
@@ -80,10 +81,6 @@ const {
         const applyTheme = () => {
           const theme = colorScheme.matches ? 'light' : 'dark';
           document.documentElement.setAttribute("data-theme", theme);
-          document.getElementById('theme-color-meta')?.setAttribute(
-            'content',
-            theme === 'light' ? '#fcfaf2' : '#1a1c1e'
-          );
         };
         applyTheme();
         colorScheme.addEventListener('change', applyTheme);
