@@ -212,14 +212,37 @@ const {
           }, 15000);
         });
 
-        document.addEventListener("astro:page-load", () => {
+        const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+
+        document.addEventListener("astro:page-load", async () => {
           clearTimeout(safetyTimer);
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              const layer = cover();
-              if (layer) layer.classList.remove("is-visible");
-            });
-          });
+
+          // Astro's page-load event does not guarantee that swap-fonts have
+          // finished replacing fallback glyphs. Keep the cover up until fonts,
+          // images, and the browser's next layout frames have settled.
+          const reveal = async () => {
+            if (document.fonts?.ready) {
+              await Promise.race([
+                document.fonts.ready,
+                new Promise((resolve) => window.setTimeout(resolve, 8000))
+              ]);
+            }
+
+            const images = Array.from(document.images).filter((image) => !image.complete);
+            await Promise.all(images.map((image) => new Promise((resolve) => {
+              image.addEventListener("load", resolve, { once: true });
+              image.addEventListener("error", resolve, { once: true });
+            })));
+
+            await nextFrame();
+            await nextFrame();
+            await nextFrame();
+
+            const layer = cover();
+            if (layer) layer.classList.remove("is-visible");
+          };
+
+          await reveal();
         });
       })();
     </script>
