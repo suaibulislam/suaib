@@ -1,12 +1,11 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Footer from '../components/Footer.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 import { getCollection } from 'astro:content';
 
 const allProjects = await getCollection('projects');
 const projects = allProjects.sort((a, b) => {
-  
   if (a.data.featured && !b.data.featured) return -1;
   if (!a.data.featured && b.data.featured) return 1;
   if (a.data.date && b.data.date) {
@@ -21,46 +20,44 @@ const projects = allProjects.sort((a, b) => {
   description="things i built."
   canonical="https://suaib.is-a.dev/projects"
 >
+  <section class="projects-section">
+    <h1 class="section-heading">things i built</h1>
+    <div class="projects-grid">
+      {projects.map(project => (
+        <ProjectCard 
+          title={project.data.title}
+          description={project.data.description}
+          tech={project.data.tech}
+          status={project.data.status}
+          slug={project.slug}
+          github={project.data.github}
+          demo={project.data.demo}
+          featured={project.data.featured}
+        />
+      ))}
+    </div>
+  </section>
 
-<section class="projects-section">
-  <h1 class="section-heading">things i built</h1>
-  <div class="projects-grid">
-    {projects.map(project => (
-      <ProjectCard 
-        title={project.data.title}
-        description={project.data.description}
-        tech={project.data.tech}
-        status={project.data.status}
-        slug={project.slug}
-        github={project.data.github}
-        demo={project.data.demo}
-        featured={project.data.featured}
-      />
-    ))}
-  </div>
-</section>
-
-<style>
-  .projects-section {
-    max-width: 800px;
-    margin: 0 auto 4rem;
-    width: 100%;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
+  <style>
+    .projects-section {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      width: 100%;
     }
-  }
-</style>
 
-<Footer />
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
 
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+  </style>
+
+  <Footer />
 </BaseLayout>

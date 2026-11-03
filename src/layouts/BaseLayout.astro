@@ -30,6 +30,7 @@ const {
     <meta name="google-site-verification" content="_xKmImyX8iD4OaXfjFikMU-8Al6xvoFHu66DMYjmVgU" />
     <meta name="description" content={description} />
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
     <style is:inline>
       :root,
       [data-theme="dark"] {
@@ -60,10 +61,18 @@ const {
         color: var(--text-primary);
       }
 
-      a {
+      body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+      }
+
+      a,
+      a:visited {
         color: inherit;
+        text-decoration: none;
       }
     </style>
+
     <script is:inline>
       (function () {
         const getSystemTheme = () => {
@@ -75,7 +84,6 @@ const {
     </script>
     <ClientRouter />
 
-    <!-- seo -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="suaib" />
@@ -84,7 +92,6 @@ const {
     <meta property="og:image" content={ogImage} />
     <meta name="theme-color" content="#ff8c42" />
 
-    <!-- twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonical} />
     <meta property="twitter:title" content={title} />
@@ -92,7 +99,7 @@ const {
     <meta property="twitter:image" content={ogImage} />
 
     <title>{title}</title>
-    <link rel="stylesheet" href="/assets/css/styles.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/styles.css?v=4" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -102,16 +109,13 @@ const {
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Lexend:wght@300..800&display=swap"
       rel="stylesheet"
     />
-    <!-- prefetch -->
     <link rel="prefetch" href="/projects" />
     <link rel="prefetch" href="/blogs" />
     <link rel="prefetch" href="/connect" />
-
     <link rel="canonical" href={canonical} />
 
     <Analytics />
 
-    <!-- schema -->
     <script type="application/ld+json" is:inline>
       [
         {
@@ -140,20 +144,15 @@ const {
     </script>
   </head>
   <body>
-    <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Header -->
     {!hideHeader && <Header />}
 
-    <!-- Main Content -->
     <main id="main-content" class="main-content">
       <div class="content-wrapper">
         <slot />
       </div>
     </main>
-
-    <!-- Particle System -->
 
     <script src="/assets/js/script.js" is:inline></script>
   </body>
