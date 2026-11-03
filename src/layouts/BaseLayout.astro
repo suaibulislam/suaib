@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import { ClientRouter } from "astro:transitions";
 import Analytics from '@vercel/analytics/astro';
 
 export interface Props {
@@ -22,8 +23,9 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="none">
+<html lang="en">
   <head>
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="_xKmImyX8iD4OaXfjFikMU-8Al6xvoFHu66DMYjmVgU" />
@@ -69,6 +71,47 @@ const {
       a:visited {
         color: inherit;
         text-decoration: none;
+      }
+    </style>
+
+    <style is:inline>
+      /* Opaque transition cover: the incoming document is never exposed mid-swap. */
+      #route-transition-cover {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-items: center;
+        background: var(--bg-primary, #1a1c1e);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      #route-transition-cover.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+      }
+
+      #route-transition-cover::after {
+        content: "";
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--border-color, rgba(255, 140, 66, 0.15));
+        border-top-color: var(--primary-color, #ff8c42);
+        border-radius: 50%;
+        animation: route-cover-spin 700ms linear infinite;
+      }
+
+      @keyframes route-cover-spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #route-transition-cover { transition: none; }
+        #route-transition-cover::after { animation-duration: 1.5s; }
       }
     </style>
 
@@ -142,6 +185,7 @@ const {
     </script>
   </head>
   <body>
+    <div id="route-transition-cover" transition:persist aria-hidden="true"></div>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     {!hideHeader && <Header />}
@@ -152,6 +196,56 @@ const {
       </div>
     </main>
 
+    <script is:inline>
+      (() => {
+        const cover = () => document.getElementById("route-transition-cover");
+        let safetyTimer;
+
+        document.addEventListener("astro:before-preparation", () => {
+          const layer = cover();
+          if (!layer) return;
+          clearTimeout(safetyTimer);
+          layer.classList.add("is-visible");
+          // Never leave the site covered if a navigation request stalls.
+          safetyTimer = window.setTimeout(() => {
+            layer.classList.remove("is-visible");
+          }, 15000);
+        });
+
+        const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+
+        document.addEventListener("astro:page-load", async () => {
+          clearTimeout(safetyTimer);
+
+          // Astro's page-load event does not guarantee that swap-fonts have
+          // finished replacing fallback glyphs. Keep the cover up until fonts,
+          // images, and the browser's next layout frames have settled.
+          const reveal = async () => {
+            if (document.fonts?.ready) {
+              await Promise.race([
+                document.fonts.ready,
+                new Promise((resolve) => window.setTimeout(resolve, 8000))
+              ]);
+            }
+
+            const images = Array.from(document.images).filter((image) => !image.complete);
+            await Promise.all(images.map((image) => new Promise((resolve) => {
+              image.addEventListener("load", resolve, { once: true });
+              image.addEventListener("error", resolve, { once: true });
+            })));
+
+            await nextFrame();
+            await nextFrame();
+            await nextFrame();
+
+            const layer = cover();
+            if (layer) layer.classList.remove("is-visible");
+          };
+
+          await reveal();
+        });
+      })();
+    </script>
     <script src="/assets/js/script.js" is:inline></script>
   </body>
 </html>
