@@ -1,85 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
-import animeItems from "../data/anime.json";
 ---
 
 <BaseLayout
-  title="suaib — a small corner of the internet"
-  description="i'm suaib. i build small web projects and share bits of what i'm into."
+  title="suaib"
+  description="suaib's personal website. i build small web projects and share what i'm learning."
   canonical="https://suaib.is-a.dev/"
 >
   <section class="home-intro" aria-labelledby="home-title">
-    <div class="home-copy">
-      <p class="home-eyebrow"><span class="eyebrow-mark"></span> PERSONAL WEBSITE <span class="eyebrow-divider">/</span> EST. ON THE INTERNET</p>
-      <h1 id="home-title">hello<span class="home-period">.</span><br />i'm suaib<span class="home-period">.</span></h1>
-      <p class="home-lede">
-        i make <span class="home-highlight">small things for the internet</span> — little web projects,
-        experiments, and whatever ideas happen to stick.
-      </p>
-      <p class="home-supporting">
-        this is my corner of the web. a place to keep the things i build, write down a few thoughts,
-        and leave some traces of what i'm into.
-      </p>
-      <div class="home-actions">
-        <a class="home-action home-action-primary" href="/projects">
-          <span>explore my projects</span>
-          <span class="action-arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="home-action home-action-secondary" href="/connect">say hello <span aria-hidden="true">→</span></a>
-      </div>
-    </div>
-
-    <aside class="home-aside" aria-label="A little about me">
-      <div class="aside-topline">
-        <span class="aside-label">A LITTLE SIDE NOTE</span>
-        <span class="aside-index">NO. 001</span>
-      </div>
-      <div class="aside-section">
-        <span class="aside-kicker">WHEN I'M AWAY FROM THE EDITOR</span>
-        <h2>usually watching</h2>
-        <ul class="anime-list">
-          {animeItems.map((anime, index) => (
-            <li>
-              <span class="list-index">{String(index + 1).padStart(2, "0")}</span>
-              <a href={anime.url} target="_blank" rel="noopener noreferrer">{anime.title}<span aria-hidden="true">↗</span></a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div class="aside-footer">
-        <span class="aside-dot" aria-hidden="true"></span>
-        <p>occasionally logging into <strong>clash of clans</strong>, too.</p>
-      </div>
-      <span class="aside-stamp" aria-hidden="true">S.</span>
-    </aside>
-  </section>
-
-  <section class="home-index" aria-label="Explore the website">
-    <div class="index-heading">
-      <span>TAKE A LOOK AROUND</span>
-      <span class="index-rule"></span>
-    </div>
-    <div class="index-grid">
-      <a class="index-card" href="/projects">
-        <span class="index-number">01 / BUILD</span>
-        <span class="index-title">things i built</span>
-        <span class="index-description">small projects, experiments, and ideas brought to life.</span>
-        <span class="index-arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="index-card" href="/blogs">
-        <span class="index-number">02 / WRITE</span>
-        <span class="index-title">notes & thoughts</span>
-        <span class="index-description">occasional writing, observations, and things worth keeping.</span>
-        <span class="index-arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="index-card" href="/connect">
-        <span class="index-number">03 / FIND</span>
-        <span class="index-title">find me elsewhere</span>
-        <span class="index-description">the other places where i spend time on the internet.</span>
-        <span class="index-arrow" aria-hidden="true">↗</span>
-      </a>
-    </div>
+    <h1 id="home-title">hello, i'm suaib<span class="home-period">.</span></h1>
+    <p>
+      i'm a student who enjoys building things for the web. i make
+      <a href="/projects">small web projects</a>, explore ideas, and keep learning
+      along the way.
+    </p>
+    <p class="home-links">
+      take a look at <a href="/projects">my projects</a>,
+      read <a href="/blogs">my notes</a>, or <a href="/connect">get in touch</a>.
+    </p>
   </section>
 
   <Footer />
