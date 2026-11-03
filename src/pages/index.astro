@@ -1,56 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
-import animeItems from "../data/anime.json";
 ---
 
 <BaseLayout
   title="suaib"
-  description="suaib's personal site. small web projects."
+  description="suaib's personal website. i build small web projects and share what i'm learning."
   canonical="https://suaib.is-a.dev/"
 >
-  <section class="about-section">
-    <h1 class="section-heading">hello</h1>
-    <div class="about-content">
-      <p>
-        i'm suaib. i build <a href="/projects" class="subtle-link">small web projects</a> whenever an idea catches my interest. when i'm not coding, i usually watch anime, currently {
-          animeItems.map((anime, index) => {
-            const separator = index < animeItems.length - 1 
-              ? (index === animeItems.length - 2 ? ' and ' : ', ') 
-              : '';
-            return (
-              <>
-                <a href={anime.url} class="subtle-link" target="_blank" rel="noopener">{anime.title}</a>{separator}
-              </>
-            );
-          })
-        }, or occasionally play clash of clans.
-      </p>
-    </div>
+  <section class="home-intro" aria-labelledby="home-title">
+    <h1 id="home-title">hello, i'm suaib<span class="home-period">.</span></h1>
+    <p>
+      i'm a student who enjoys building things for the web. i make
+      <a href="/projects">small web projects</a>, explore ideas, and keep learning
+      along the way.
+    </p>
+    <p class="home-links">
+      take a look at <a href="/projects">my projects</a>,
+      read <a href="/blogs">my notes</a>, or <a href="/connect">get in touch</a>.
+    </p>
   </section>
 
   <Footer />
 </BaseLayout>
-
-<style>
-  .about-section {
-    margin-bottom: 3rem;
-  }
-
-  .about-content p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    max-width: 100%;
-    text-align: left;
-  }
-
-  .subtle-link {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .subtle-link:hover {
-    color: var(--primary-color);
-  }
-</style>
