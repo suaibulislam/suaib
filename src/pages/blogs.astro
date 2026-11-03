@@ -35,7 +35,7 @@ const hasPosts = posts.length > 0;
             {posts.map((post) => (
               <a
                 href={`/blogs/${post.slug}`}
-                class="blog-entry"
+                class="blog-entry card-hover"
                 data-title={post.data.title.toLowerCase()}
               >
                 <span class="blog-title">{post.data.title}</span>
@@ -155,14 +155,6 @@ const hasPosts = posts.length > 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: transparent;
     position: relative;
-  }
-
-  .blog-entry:hover {
-    background: var(--bg-secondary);
-    border-color: var(--primary-color);
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0 rgba(var(--primary-rgb), 0.2);
-    border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
   }
 
   .blog-entry.drafting {

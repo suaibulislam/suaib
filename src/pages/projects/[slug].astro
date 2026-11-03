@@ -39,13 +39,13 @@ const { Content } = await project.render();
           <h3 class="meta-label">links</h3>
           <div class="project-links">
             {project.data.github && (
-              <a href={project.data.github} class="project-link" target="_blank" rel="noopener">
+              <a href={project.data.github} class="project-link card-hover" target="_blank" rel="noopener">
                 <span class="link-icon">gh</span>
                 source code
               </a>
             )}
             {project.data.demo && (
-              <a href={project.data.demo} class="project-link" target="_blank" rel="noopener">
+              <a href={project.data.demo} class="project-link card-hover" target="_blank" rel="noopener">
                 <span class="link-icon">live</span>
                 view demo
               </a>
@@ -152,13 +152,6 @@ const { Content } = await project.render();
     font-size: 0.9rem;
     font-weight: 600;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .project-link:hover {
-    border-color: var(--primary-color);
-    transform: translate(-3px, -3px);
-    box-shadow: 4px 4px 0 rgba(var(--primary-rgb), 0.15);
-    background: var(--bg-secondary);
   }
 
   .link-icon {

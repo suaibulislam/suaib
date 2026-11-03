@@ -87,13 +87,39 @@ body::after {
 }
 
 /* shared interaction primitives */
+/* Shared interaction foundation: components keep their own geometry, not their own motion. */
 .card-hover {
-    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease;
 }
 
 .card-hover:hover {
     border-color: var(--primary-color);
-    background: var(--bg-secondary);
+    background-color: var(--bg-secondary);
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 rgba(var(--primary-rgb), 0.2);
+}
+
+.card-hover:focus-visible,
+.link-button:focus-visible,
+.action-link:focus-visible,
+.project-link:focus-visible,
+.back-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+/* These page cards previously had separate hover motion. Keep their appearance,
+   but route their interaction through the shared card primitive. */
+.blog-entry.card-hover:hover,
+.social-card.card-hover:hover,
+.project-card.card-hover:hover {
+    border-color: var(--primary-color);
+    background-color: var(--bg-secondary);
     transform: translate(-4px, -4px);
     box-shadow: 6px 6px 0 rgba(var(--primary-rgb), 0.2);
 }
