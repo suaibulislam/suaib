@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 ---
 
-<article class={`project-card ${featured ? "featured" : ""}`}>
+<article class={`project-card card-hover ${featured ? "featured" : ""}`}>
   <div class="project-icon-wrapper">
     <div class="project-icon">{title.charAt(0).toLowerCase()}</div>
   </div>
@@ -81,7 +81,6 @@ const {
     border: 3px dotted var(--border-color);
     border-radius: var(--radius-lg, 14px);
     padding: 1rem 1.25rem;
-    transition: all 0.2s ease;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -91,11 +90,8 @@ const {
   }
 
   .project-card:hover {
-    border-color: var(--primary-color);
     background: var(--bg-secondary);
-    transform: translate(-4px, -4px);
-    box-shadow: 6px 6px 0 rgba(var(--primary-rgb), 0.2);
-    border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+    border-color: var(--primary-color);
   }
 
   .project-card.featured {
