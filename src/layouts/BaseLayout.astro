@@ -23,7 +23,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" transition:animate="fade">
+<html lang="en">
   <head>
     <ClientRouter />
     <meta charset="UTF-8" />
@@ -71,6 +71,47 @@ const {
       a:visited {
         color: inherit;
         text-decoration: none;
+      }
+    </style>
+
+    <style is:inline>
+      /* Opaque transition cover: the incoming document is never exposed mid-swap. */
+      #route-transition-cover {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-items: center;
+        background: var(--bg-primary, #1a1c1e);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      #route-transition-cover.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: all;
+      }
+
+      #route-transition-cover::after {
+        content: "";
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--border-color, rgba(255, 140, 66, 0.15));
+        border-top-color: var(--primary-color, #ff8c42);
+        border-radius: 50%;
+        animation: route-cover-spin 700ms linear infinite;
+      }
+
+      @keyframes route-cover-spin {
+        to { transform: rotate(360deg); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #route-transition-cover { transition: none; }
+        #route-transition-cover::after { animation-duration: 1.5s; }
       }
     </style>
 
@@ -144,6 +185,7 @@ const {
     </script>
   </head>
   <body>
+    <div id="route-transition-cover" transition:persist aria-hidden="true"></div>
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
     {!hideHeader && <Header />}
@@ -154,6 +196,33 @@ const {
       </div>
     </main>
 
+    <script is:inline>
+      (() => {
+        const cover = () => document.getElementById("route-transition-cover");
+        let safetyTimer;
+
+        document.addEventListener("astro:before-preparation", () => {
+          const layer = cover();
+          if (!layer) return;
+          clearTimeout(safetyTimer);
+          layer.classList.add("is-visible");
+          // Never leave the site covered if a navigation request stalls.
+          safetyTimer = window.setTimeout(() => {
+            layer.classList.remove("is-visible");
+          }, 15000);
+        });
+
+        document.addEventListener("astro:page-load", () => {
+          clearTimeout(safetyTimer);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              const layer = cover();
+              if (layer) layer.classList.remove("is-visible");
+            });
+          });
+        });
+      })();
+    </script>
     <script src="/assets/js/script.js" is:inline></script>
   </body>
 </html>
