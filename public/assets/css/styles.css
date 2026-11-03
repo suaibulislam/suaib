@@ -312,3 +312,97 @@ html {
         scroll-behavior: auto !important;
     }
 }
+
+
+/* Dedicated 404 layout: global stylesheet rules ensure the error page
+   does not depend on component-scoped CSS being emitted or applied. */
+.page-404-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100svh;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    background: var(--bg-primary);
+    box-sizing: border-box;
+}
+
+.page-404 {
+    width: min(100%, 640px);
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+.page-404-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.page-404-visual {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.page-404-code {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.08em;
+}
+
+.page-404-emoji {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    line-height: 1;
+    transform: rotate(-8deg);
+}
+
+.page-404 .section-heading {
+    display: block;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    text-align: center;
+}
+
+.page-404 .section-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.page-404 .about-content {
+    width: min(100%, 32rem);
+    color: var(--text-secondary);
+}
+
+.page-404 .about-content p {
+    margin: 0;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.page-404 .back-link {
+    margin-top: 2rem;
+}
+
+@media (max-width: 480px) {
+    .page-404-layout {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .page-404-code {
+        font-size: clamp(4.5rem, 22vw, 6rem);
+    }
+}
